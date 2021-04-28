@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.mahmoudramadan.todolist.Model.ToDoModel;
+import com.mahmoudramadan.todolist.Model.TODOModel;
 import com.mahmoudramadan.todolist.Utils.DatabaseHandler;
 
 public class AddNewTask extends AppCompatDialogFragment {
@@ -95,7 +95,7 @@ public class AddNewTask extends AppCompatDialogFragment {
                 if (finalIsUpdated) {
                     db.updateTaskText(bundle.getInt("id"), text);
                 } else {
-                    ToDoModel task = new ToDoModel();
+                    TODOModel task = new TODOModel();
                     task.setTask(text);
                     task.setDate(null);
                     task.setStatus(0);
