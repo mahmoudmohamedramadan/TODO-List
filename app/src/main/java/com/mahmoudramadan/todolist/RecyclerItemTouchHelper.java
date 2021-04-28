@@ -14,14 +14,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahmoudramadan.todolist.Adapter.TodoAdapter;
+import com.mahmoudramadan.todolist.Adapter.TODOAdapter;
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
-    private TodoAdapter adapter;
+    private TODOAdapter adapter;
     private boolean isSwipedLeft = false;
 
-    public RecyclerItemTouchHelper(TodoAdapter adapter) {
+    public RecyclerItemTouchHelper(TODOAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }
