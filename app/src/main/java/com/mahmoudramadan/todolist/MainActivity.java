@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mahmoudramadan.todolist.Adapter.TodoAdapter;
-import com.mahmoudramadan.todolist.Model.ToDoModel;
+import com.mahmoudramadan.todolist.Adapter.TODOAdapter;
+import com.mahmoudramadan.todolist.Model.TODOModel;
 import com.mahmoudramadan.todolist.Utils.DatabaseHandler;
 
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements DialogCloseListener {
 
     private RecyclerView tasksRecycleView;
-    private TodoAdapter tasksAdapter;
-    private List<ToDoModel> taskList;
+    private TODOAdapter tasksAdapter;
+    private List<TODOModel> taskList;
     private DatabaseHandler db;
     private FloatingActionButton fab;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
         tasksRecycleView = findViewById(R.id.tasksRecycleView);
         tasksRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        tasksAdapter = new TodoAdapter(db, this);
+        tasksAdapter = new TODOAdapter(db, this);
         tasksRecycleView.setAdapter(tasksAdapter);
 
         fab = findViewById(R.id.fab);
