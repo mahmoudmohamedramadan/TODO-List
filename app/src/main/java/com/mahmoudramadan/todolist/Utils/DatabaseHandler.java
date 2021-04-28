@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.mahmoudramadan.todolist.Model.ToDoModel;
+import com.mahmoudramadan.todolist.Model.TODOModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
-    public void insertTask(ToDoModel task) {
+    public void insertTask(TODOModel task) {
         ContentValues cv = new ContentValues();
         cv.put("task", task.getTask());
         cv.put("date", task.getDate());
@@ -57,8 +57,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TODO_TABLE, null, cv);
     }
 
-    public List<ToDoModel> getTasks() {
-        List<ToDoModel> taskList = new ArrayList<>();
+    public List<TODOModel> getTasks() {
+        List<TODOModel> taskList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
         try {
@@ -66,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
-                        ToDoModel task = new ToDoModel();
+                        TODOModel task = new TODOModel();
                         task.setId(cursor.getInt(cursor.getColumnIndex("id")));
                         task.setTask(cursor.getString(cursor.getColumnIndex("task")));
                         task.setDate(cursor.getString(cursor.getColumnIndex("date")));
