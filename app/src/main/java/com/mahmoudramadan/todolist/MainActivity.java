@@ -10,9 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mahmoudramadan.todolist.Adapter.TODOAdapter;
-import com.mahmoudramadan.todolist.Model.TODOModel;
-import com.mahmoudramadan.todolist.Utils.DatabaseHandler;
+import com.mahmoudramadan.todolist.Adapter.CategoryAdapter;
+import com.mahmoudramadan.todolist.Model.CategoryModel;
+import com.mahmoudramadan.todolist.Utils.CategoryDatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,11 +20,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DialogCloseListener {
 
-    private RecyclerView tasksRecycleView;
-    private TODOAdapter tasksAdapter;
-    private List<TODOModel> taskList;
-    private DatabaseHandler db;
-    private FloatingActionButton fab;
+    private RecyclerView categoriesRecycleView;
+    private CategoryAdapter categoriesAdapter;
+    private List<CategoryModel> categoryList;
+    private CategoryDatabaseHandler db;
+    private FloatingActionButton addNewCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,37 +32,37 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-        db = new DatabaseHandler(this);
+        db = new CategoryDatabaseHandler(this);
         db.openDatabase();
 
-        taskList = new ArrayList<>();
+        categoryList = new ArrayList<>();
 
-        tasksRecycleView = findViewById(R.id.tasksRecycleView);
-        tasksRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        tasksAdapter = new TODOAdapter(db, this);
-        tasksRecycleView.setAdapter(tasksAdapter);
+        categoriesRecycleView = findViewById(R.id.categoriesRecycleView);
+        categoriesRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        categoriesAdapter = new CategoryAdapter(db, this);
+        categoriesRecycleView.setAdapter(categoriesAdapter);
 
-        fab = findViewById(R.id.fab);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
-        itemTouchHelper.attachToRecyclerView(tasksRecycleView);
+        addNewCategory = findViewById(R.id.addNewCategory);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new CategoryRecyclerItemTouchHelper(categoriesAdapter));
+        itemTouchHelper.attachToRecyclerView(categoriesRecycleView);
 
-        taskList = db.getTasks();
-        Collections.reverse(taskList);
-        tasksAdapter.setTasks(taskList);
+        categoryList = db.getCategories();
+        Collections.reverse(categoryList);
+        categoriesAdapter.setCategories(categoryList);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        addNewCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
+                AddNewCategory.newInstance().show(getSupportFragmentManager(), AddNewCategory.TAG);
             }
         });
     }
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        taskList = db.getTasks();
-        Collections.reverse(taskList);
-        tasksAdapter.setTasks(taskList);
-        tasksAdapter.notifyDataSetChanged();
+        categoryList = db.getCategories();
+        Collections.reverse(categoryList);
+        categoriesAdapter.setCategories(categoryList);
+        categoriesAdapter.notifyDataSetChanged();
     }
 }
