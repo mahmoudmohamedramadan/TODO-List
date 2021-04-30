@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.mahmoudramadan.todolist.Utils.DatabaseHandler;
+import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
 
 public class TaskDateActivity extends AppCompatDialogFragment {
 
@@ -48,7 +48,7 @@ public class TaskDateActivity extends AppCompatDialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        DatabaseHandler db = new DatabaseHandler(getActivity());
+        TODODatabaseHandler db = new TODODatabaseHandler(getActivity());
         db.openDatabase();
 
         final Bundle bundle = getArguments();
