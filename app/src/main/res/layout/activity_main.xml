@@ -7,35 +7,36 @@
     android:paddingRight="16dp">
 
     <TextView
-        android:id="@+id/taskNameEditText"
+        android:id="@+id/categoryNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Tasks"
+        android:text="Categories"
         android:textSize="32sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksRecycleView"
+        android:id="@+id/categoriesRecycleView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_below="@+id/taskNameEditText"
+        android:layout_below="@+id/categoryNameEditText"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/addNewCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/tasksRecycleView"
-        android:layout_alignRight="@id/tasksRecycleView"
+        android:layout_alignEnd="@id/categoriesRecycleView"
+        android:layout_alignRight="@id/categoriesRecycleView"
         android:layout_alignParentBottom="true"
-        android:layout_margin="32dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@android:color/holo_blue_dark"
-        android:src="@drawable/ic_baseline_add"
+        android:src="@drawable/ic_baseline_category"
+        app:backgroundTint="@color/white"
         app:tint="@color/white" />
 
 </RelativeLayout>
