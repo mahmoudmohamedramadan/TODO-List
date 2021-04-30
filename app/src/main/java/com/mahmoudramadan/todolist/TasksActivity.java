@@ -34,6 +34,7 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
 
         db = new TODODatabaseHandler(this);
         db.openDatabase();
+        db.onCreate(db.db);
 
         taskList = new ArrayList<>();
 
