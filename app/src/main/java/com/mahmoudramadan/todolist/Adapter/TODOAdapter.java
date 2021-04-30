@@ -13,22 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mahmoudramadan.todolist.AddNewTask;
-import com.mahmoudramadan.todolist.MainActivity;
 import com.mahmoudramadan.todolist.Model.TODOModel;
 import com.mahmoudramadan.todolist.R;
 import com.mahmoudramadan.todolist.TaskDateActivity;
-import com.mahmoudramadan.todolist.Utils.DatabaseHandler;
+import com.mahmoudramadan.todolist.TasksActivity;
+import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
 
 import java.util.List;
 
 public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
 
     private List<TODOModel> todoList;
-    private MainActivity activity;
-    private DatabaseHandler db;
+    private TasksActivity activity;
+    private TODODatabaseHandler db;
     private static FloatingActionButton datePickerButton;
 
-    public TODOAdapter(DatabaseHandler db, MainActivity activity) {
+    public TODOAdapter(TODODatabaseHandler db, TasksActivity activity) {
         this.db = db;
         this.activity = activity;
     }
@@ -58,8 +58,6 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* TaskDateActivity.newInstance(holder.itemView)
-                        .show(((AppCompatActivity) getContext()).getSupportFragmentManager(), TaskDateActivity.TAG); */
                 updateItemTaskDate(holder.itemView, position);
             }
         });
