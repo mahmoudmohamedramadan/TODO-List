@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TODODatabaseHandler extends SQLiteOpenHelper {
 
-    private SQLiteDatabase db;
+    public SQLiteDatabase db;
     public static final int VERSION = 1;
     public static final String NAME = "TODOListDatabase.db";
     public static final String TODO_TABLE = "todos";
@@ -21,7 +21,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_TASK = "task";
     public static final String COLUMN_NAME_STATUS = "status";
     public static final String COLUMN_NAME_DATE = "date";
-    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TABLE + " (" +
+    private static final String CREATE_TODO_TABLE = "CREATE TABLE IF NOT EXISTS " + TODO_TABLE + " (" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NAME_TASK + " TEXT," +
             COLUMN_NAME_STATUS + " INTEGER," +
