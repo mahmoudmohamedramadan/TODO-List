@@ -17,11 +17,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.mahmoudramadan.todolist.Model.TODOModel;
-import com.mahmoudramadan.todolist.Utils.DatabaseHandler;
+import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
 
 public class AddNewTask extends AppCompatDialogFragment {
 
     public static String TAG = "AddNewTaskDialog";
+    private TextView newTaskTitle;
     private EditText newTaskEditText;
     private Button saveTaskButton;
 
@@ -45,6 +46,7 @@ public class AddNewTask extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_task, null);
+        newTaskTitle = view.findViewById(R.id.newTaskTitle);
         newTaskEditText = view.findViewById(R.id.newTaskEditText);
         saveTaskButton = view.findViewById(R.id.saveTaskButton);
 
@@ -58,7 +60,7 @@ public class AddNewTask extends AppCompatDialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        DatabaseHandler db = new DatabaseHandler(getActivity());
+        TODODatabaseHandler db = new TODODatabaseHandler(getActivity());
         db.openDatabase();
 
         boolean isUpdated = false;
@@ -66,6 +68,7 @@ public class AddNewTask extends AppCompatDialogFragment {
         if (bundle != null) {
             isUpdated = true;
             String task = bundle.getString("task");
+            newTaskTitle.setText("Edit Task");
             newTaskEditText.setText(task);
             newTaskEditText.setSelection(newTaskEditText.getText().length());
         }
