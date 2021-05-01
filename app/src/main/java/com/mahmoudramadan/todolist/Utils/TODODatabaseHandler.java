@@ -53,12 +53,14 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void insertTask(TODOModel task) {
-        ContentValues cv = new ContentValues();
-        cv.put("task", task.getTask());
-        cv.put("status", 0);
-        cv.put("date", task.getDate());
-        cv.put("category_id", task.getCategory_id());
-        db.insert(TODO_TABLE, null, cv);
+        if (getTaskCount(task.getTask()) < 1) {
+            ContentValues cv = new ContentValues();
+            cv.put("task", task.getTask());
+            cv.put("status", 0);
+            cv.put("date", task.getDate());
+            cv.put("category_id", task.getCategory_id());
+            db.insert(TODO_TABLE, null, cv);
+        }
     }
 
     public List<TODOModel> getTasks(String category_id) {
@@ -66,7 +68,8 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(TODO_TABLE, null, "category_id = " + category_id, null, null, null, null, null);
+            cursor = db.query(TODO_TABLE, null, "category_id = " + category_id, null,
+                    null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
@@ -84,6 +87,11 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         return taskList;
+    }
+
+    public int getTaskCount(String task) {
+        return db.query(TODO_TABLE, null, "task = '" + task + "'", null,
+                null, null, null, null).getCount();
     }
 
     public void updateTaskText(int id, String newTaskValue) {
