@@ -47,13 +47,14 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TODORecyclerItemTouchHelper(tasksAdapter));
         itemTouchHelper.attachToRecyclerView(tasksRecycleView);
 
-        taskList = db.getTasks();
+        taskList = db.getTasks(getIntent().getStringExtra("category_id"));
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
 
         addNewTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddNewTask.category_id = getIntent().getStringExtra("category_id");
                 AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
             }
         });
@@ -61,7 +62,7 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        taskList = db.getTasks();
+        taskList = db.getTasks(getIntent().getStringExtra("category_id"));
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();
