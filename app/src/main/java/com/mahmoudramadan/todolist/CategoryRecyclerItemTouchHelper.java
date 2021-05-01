@@ -48,7 +48,7 @@ public class CategoryRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallb
             builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                    dialog.dismiss();
                 }
             });
             builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -81,7 +81,7 @@ public class CategoryRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallb
             } else {
                 isSwipedLeft = true;
                 icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.ic_baseline_delete);
-                background = new ColorDrawable(Color.RED);
+                background = new ColorDrawable(Color.rgb(128, 0, 0));
             }
 
             int iconMargin = (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;
