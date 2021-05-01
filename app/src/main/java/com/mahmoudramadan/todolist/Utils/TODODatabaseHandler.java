@@ -21,11 +21,15 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_TASK = "task";
     public static final String COLUMN_NAME_STATUS = "status";
     public static final String COLUMN_NAME_DATE = "date";
-    private static final String CREATE_TODO_TABLE = "CREATE TABLE IF NOT EXISTS " + TODO_TABLE + " (" +
+    public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
+
+    private static final String CREATE_TODO_TABLE = "CREATE TABLE IF NOT EXISTS " + TODO_TABLE + "(" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NAME_TASK + " TEXT," +
             COLUMN_NAME_STATUS + " INTEGER," +
-            COLUMN_NAME_DATE + " TEXT)";
+            COLUMN_NAME_DATE + " TEXT," +
+            COLUMN_NAME_CATEGORY_ID + " INTEGER," +
+            "FOREIGN KEY(" + COLUMN_NAME_CATEGORY_ID + ") REFERENCES categories(id))";
 
     public TODODatabaseHandler(Context context) {
         super(context, NAME, null, VERSION);
@@ -51,17 +55,18 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public void insertTask(TODOModel task) {
         ContentValues cv = new ContentValues();
         cv.put("task", task.getTask());
-        cv.put("date", task.getDate());
         cv.put("status", 0);
+        cv.put("date", task.getDate());
+        cv.put("category_id", task.getCategory_id());
         db.insert(TODO_TABLE, null, cv);
     }
 
-    public List<TODOModel> getTasks() {
+    public List<TODOModel> getTasks(String category_id) {
         List<TODOModel> taskList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(TODO_TABLE, null, null, null, null, null, null);
+            cursor = db.query(TODO_TABLE, null, "category_id = " + category_id, null, null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
