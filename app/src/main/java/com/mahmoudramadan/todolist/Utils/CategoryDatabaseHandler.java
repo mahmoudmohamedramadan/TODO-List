@@ -19,7 +19,8 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
     public static final String CATEGORY_TABLE = "categories";
     public static final String ID = "id";
     public static final String COLUMN_NAME_CATEGORY = "category";
-    private static final String CREATE_CATEGORY_TABLE = "CREATE TABLE " + CATEGORY_TABLE + " (" +
+
+    private static final String CREATE_CATEGORY_TABLE = "CREATE TABLE IF NOT EXISTS " + CATEGORY_TABLE + "(" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NAME_CATEGORY + " TEXT)";
 
@@ -55,7 +56,7 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null);
+            cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
