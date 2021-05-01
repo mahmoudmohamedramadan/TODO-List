@@ -21,7 +21,7 @@ import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
 
 public class AddNewTask extends AppCompatDialogFragment {
 
-    public static String TAG = "AddNewTaskDialog";
+    public static String TAG = "AddNewTaskDialog", category_id;
     private TextView newTaskTitle;
     private EditText newTaskEditText;
     private Button saveTaskButton;
@@ -43,7 +43,6 @@ public class AddNewTask extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_task, null);
         newTaskTitle = view.findViewById(R.id.newTaskTitle);
@@ -65,6 +64,7 @@ public class AddNewTask extends AppCompatDialogFragment {
 
         boolean isUpdated = false;
         final Bundle bundle = getArguments();
+
         if (bundle != null) {
             isUpdated = true;
             String task = bundle.getString("task");
@@ -72,6 +72,7 @@ public class AddNewTask extends AppCompatDialogFragment {
             newTaskEditText.setText(task);
             newTaskEditText.setSelection(newTaskEditText.getText().length());
         }
+
         newTaskEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,6 +92,7 @@ public class AddNewTask extends AppCompatDialogFragment {
         });
 
         boolean finalIsUpdated = isUpdated;
+
         saveTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +102,9 @@ public class AddNewTask extends AppCompatDialogFragment {
                 } else {
                     TODOModel task = new TODOModel();
                     task.setTask(text);
-                    task.setDate(null);
                     task.setStatus(0);
+                    task.setDate(null);
+                    task.setCategory_id(Integer.parseInt(AddNewTask.category_id));
                     db.insertTask(task);
                 }
                 dismiss();
