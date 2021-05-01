@@ -65,6 +65,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
 
         boolean isUpdated = false;
         final Bundle bundle = getArguments();
+
         if (bundle != null) {
             isUpdated = true;
             String task = bundle.getString("category");
@@ -72,6 +73,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
             newCategoryEditText.setText(task);
             newCategoryEditText.setSelection(newCategoryEditText.getText().length());
         }
+
         newCategoryEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,6 +93,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
         });
 
         boolean finalIsUpdated = isUpdated;
+
         saveCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
