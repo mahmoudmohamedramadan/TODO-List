@@ -1,7 +1,7 @@
 package com.mahmoudramadan.todolist.Model;
 
 public class TODOModel {
-    private int id, status;
+    private int id, status, category_id;
     private String task, date;
 
     public int getId() {
@@ -18,6 +18,14 @@ public class TODOModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public String getTask() {
