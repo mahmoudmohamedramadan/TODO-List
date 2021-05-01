@@ -29,9 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:backgroundTint="@color/custom_dark_gray"
+            android:backgroundTint="@color/custom_dark_blue"
             android:src="@drawable/ic_baseline_calendar"
-            app:backgroundTint="@color/custom_dark_gray"
             app:tint="@color/white" />
 
         <TextView
