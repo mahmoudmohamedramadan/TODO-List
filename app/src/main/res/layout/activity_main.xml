@@ -34,9 +34,8 @@
         android:layout_alignRight="@id/categoriesRecycleView"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="@color/custom_dark_blue"
         android:src="@drawable/ic_baseline_category"
-        app:backgroundTint="@color/white"
         app:tint="@color/white" />
 
 </RelativeLayout>
