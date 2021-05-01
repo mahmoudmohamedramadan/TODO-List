@@ -34,8 +34,9 @@
         android:layout_alignRight="@id/tasksRecycleView"
         android:layout_alignParentBottom="true"
         android:layout_margin="32dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="@color/custom_dark_blue"
         android:src="@drawable/ic_baseline_add"
+        app:backgroundTint="@android:color/transparent"
         app:tint="@color/white" />
 
 </RelativeLayout>
