@@ -46,9 +46,13 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void insertCategory(CategoryModel category) {
-        ContentValues cv = new ContentValues();
-        cv.put("category", category.getCategory());
-        db.insert(CATEGORY_TABLE, null, cv);
+        if (getCategoryCount(category.getCategory()) < 1) {
+            ContentValues cv = new ContentValues();
+            cv.put("category", category.getCategory());
+            db.insert(CATEGORY_TABLE, null, cv);
+        } else {
+
+        }
     }
 
     public List<CategoryModel> getCategories() {
@@ -72,6 +76,11 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         return categoryList;
+    }
+
+    public int getCategoryCount(String category) {
+        return db.query(CATEGORY_TABLE, null, "category = '" + category + "'", null,
+                null, null, null, null).getCount();
     }
 
     public void updateCategoryText(int id, String newCategoryValue) {
