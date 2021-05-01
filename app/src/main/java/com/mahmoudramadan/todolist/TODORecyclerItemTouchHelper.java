@@ -39,7 +39,7 @@ public class TODORecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback 
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
             builder.setTitle("Delete Task");
             builder.setMessage("Are you sure you want to delete this task?");
-            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     adapter.deleteItem(position);
