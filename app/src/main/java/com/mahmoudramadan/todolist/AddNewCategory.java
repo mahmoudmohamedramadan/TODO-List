@@ -46,6 +46,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_category, null);
+
         newCategoryTitle = view.findViewById(R.id.newCategoryTitle);
         newCategoryEditText = view.findViewById(R.id.newCategoryEditText);
         saveCategoryButton = view.findViewById(R.id.saveCategoryButton);
