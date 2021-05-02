@@ -59,6 +59,8 @@ public class TODORecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback 
             });
             AlertDialog dialog = builder.create();
             dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.rgb(0,130,170));
         } else {
             adapter.updateItemTaskText(position);
         }
@@ -81,7 +83,7 @@ public class TODORecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback 
             } else {
                 isSwipedLeft = true;
                 icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.ic_baseline_delete);
-                background = new ColorDrawable(Color.rgb(128,0,0));
+                background = new ColorDrawable(Color.rgb(128, 0, 0));
             }
 
             int iconMargin = (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;

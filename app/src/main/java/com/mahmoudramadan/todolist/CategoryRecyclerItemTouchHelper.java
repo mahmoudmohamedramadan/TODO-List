@@ -59,6 +59,8 @@ public class CategoryRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallb
             });
             AlertDialog dialog = builder.create();
             dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.rgb(0,130,170));
         } else {
             adapter.updateItemCategoryText(position);
         }
