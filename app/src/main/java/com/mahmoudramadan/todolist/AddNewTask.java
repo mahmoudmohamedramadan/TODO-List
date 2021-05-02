@@ -45,6 +45,7 @@ public class AddNewTask extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_task, null);
+
         newTaskTitle = view.findViewById(R.id.newTaskTitle);
         newTaskEditText = view.findViewById(R.id.newTaskEditText);
         saveTaskButton = view.findViewById(R.id.saveTaskButton);
@@ -104,7 +105,7 @@ public class AddNewTask extends AppCompatDialogFragment {
                     task.setTask(text);
                     task.setStatus(0);
                     task.setDate(null);
-                    task.setCategory_id(Integer.parseInt(AddNewTask.category_id));
+                    task.setCategory_id(Integer.parseInt(category_id));
                     db.insertTask(task);
                 }
                 dismiss();
