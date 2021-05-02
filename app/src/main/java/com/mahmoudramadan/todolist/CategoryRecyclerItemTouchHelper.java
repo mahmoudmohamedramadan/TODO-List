@@ -39,13 +39,13 @@ public class CategoryRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallb
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
             builder.setTitle("Delete Category");
             builder.setMessage("Are you sure you want to delete this category?");
-            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     adapter.deleteItem(position);
                 }
             });
-            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
