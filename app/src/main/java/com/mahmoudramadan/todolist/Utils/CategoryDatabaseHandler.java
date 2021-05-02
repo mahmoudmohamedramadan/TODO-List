@@ -50,8 +50,6 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
             ContentValues cv = new ContentValues();
             cv.put("category", category.getCategory());
             db.insert(CATEGORY_TABLE, null, cv);
-        } else {
-
         }
     }
 
@@ -90,6 +88,7 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void deleteCategory(int id) {
+        db.delete(TODODatabaseHandler.TODO_TABLE, "category_id=?", new String[]{String.valueOf(id)});
         db.delete(CATEGORY_TABLE, "id=?", new String[]{String.valueOf(id)});
     }
 }
