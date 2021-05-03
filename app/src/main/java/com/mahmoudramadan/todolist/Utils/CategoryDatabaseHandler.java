@@ -46,19 +46,17 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void insertCategory(CategoryModel category) {
-        if (getCategoryCount(category.getCategory()) < 1) {
-            ContentValues cv = new ContentValues();
-            cv.put("category", category.getCategory());
-            db.insert(CATEGORY_TABLE, null, cv);
-        }
+        ContentValues cv = new ContentValues();
+        cv.put("category", category.getCategory());
+        db.insert(CATEGORY_TABLE, null, cv);
     }
 
-    public List<CategoryModel> getCategories() {
+    public List<CategoryModel> getCategories(String query) {
         List<CategoryModel> categoryList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null, null);
+            cursor = db.query(CATEGORY_TABLE, null, query, null, null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
@@ -77,7 +75,7 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public int getCategoryCount(String category) {
-        return db.query(CATEGORY_TABLE, null, "category = '" + category + "'", null,
+        return db.query(CATEGORY_TABLE, null, "category =?", new String[]{category},
                 null, null, null, null).getCount();
     }
 
