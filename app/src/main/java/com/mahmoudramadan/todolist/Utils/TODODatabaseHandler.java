@@ -61,13 +61,12 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         db.insert(TODO_TABLE, null, cv);
     }
 
-    public List<TODOModel> getTasks(String category_id) {
+    public List<TODOModel> getTasks(String query, String[] selectionArgs) {
         List<TODOModel> taskList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(TODO_TABLE, null, "category_id =?", new String[]{String.valueOf(category_id)},
-                    null, null, "status DESC", null);
+            cursor = db.query(TODO_TABLE, null, query, selectionArgs, null, null, "status DESC", null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {

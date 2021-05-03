@@ -51,12 +51,12 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
         db.insert(CATEGORY_TABLE, null, cv);
     }
 
-    public List<CategoryModel> getCategories(String query) {
+    public List<CategoryModel> getCategories(String query, String[] selectionArgs) {
         List<CategoryModel> categoryList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(CATEGORY_TABLE, null, query, null, null, null, null, null);
+            cursor = db.query(CATEGORY_TABLE, null, query, selectionArgs, null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
