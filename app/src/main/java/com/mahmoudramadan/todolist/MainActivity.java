@@ -1,15 +1,14 @@
 package com.mahmoudramadan.todolist;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mahmoudramadan.todolist.Adapter.CategoryAdapter;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     private CategoryDatabaseHandler db;
     private FloatingActionButton addNewCategory;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,9 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new CategoryRecyclerItemTouchHelper(categoriesAdapter));
         itemTouchHelper.attachToRecyclerView(categoriesRecycleView);
 
-        categoryList = db.getCategories();
+        SearchView categorySearchView = findViewById(R.id.categorySearchView);
+
+        categoryList = db.getCategories(null);
         Collections.reverse(categoryList);
         categoriesAdapter.setCategories(categoryList);
 
@@ -59,11 +59,27 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 AddNewCategory.newInstance().show(getSupportFragmentManager(), AddNewCategory.TAG);
             }
         });
+
+        categorySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                categoryList = db.getCategories("category LIKE '%" + newText + "%'");
+                Collections.reverse(categoryList);
+                categoriesAdapter.setCategories(categoryList);
+                categoriesAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
     }
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        categoryList = db.getCategories();
+        categoryList = db.getCategories(null);
         Collections.reverse(categoryList);
         categoriesAdapter.setCategories(categoryList);
         categoriesAdapter.notifyDataSetChanged();
