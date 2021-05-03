@@ -18,11 +18,20 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
+    <SearchView
+        android:id="@+id/categorySearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categoryNameEditText"
+        android:layout_marginBottom="16dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Category" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoriesRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@+id/categoryNameEditText"
+        android:layout_height="350dp"
+        android:layout_below="@+id/categorySearchView"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
