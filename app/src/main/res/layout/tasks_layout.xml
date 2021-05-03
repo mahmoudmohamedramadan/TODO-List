@@ -18,11 +18,19 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
+    <SearchView
+        android:id="@+id/taskSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskNameEditText"
+        android:layout_marginBottom="16dp"
+        android:iconifiedByDefault="false" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecycleView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_below="@+id/taskNameEditText"
+        android:layout_below="@+id/taskSearchView"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
