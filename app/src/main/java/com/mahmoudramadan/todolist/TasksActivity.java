@@ -3,6 +3,7 @@ package com.mahmoudramadan.todolist;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +50,10 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         TextView taskNameEditText = findViewById(R.id.taskNameEditText);
         taskNameEditText.setText(getIntent().getStringExtra("category"));
 
-        taskList = db.getTasks(getIntent().getStringExtra("category_id"));
+        SearchView taskSearchView = findViewById(R.id.taskSearchView);
+        taskSearchView.setQueryHint("Search in " + getIntent().getStringExtra("category"));
+
+        taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
 
@@ -60,11 +64,28 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
                 AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
             }
         });
+
+        taskSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                taskList = db.getTasks("category_id =? AND task LIKE ?",
+                        new String[]{String.valueOf(getIntent().getStringExtra("category_id")), newText + "%"});
+                Collections.reverse(taskList);
+                tasksAdapter.setTasks(taskList);
+                tasksAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
     }
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        taskList = db.getTasks(getIntent().getStringExtra("category_id"));
+        taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
         SearchView categorySearchView = findViewById(R.id.categorySearchView);
 
-        categoryList = db.getCategories(null);
+        categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
         categoriesAdapter.setCategories(categoryList);
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                categoryList = db.getCategories("category LIKE '%" + newText + "%'");
+                categoryList = db.getCategories("category LIKE ?", new String[]{newText + "%"});
                 Collections.reverse(categoryList);
                 categoriesAdapter.setCategories(categoryList);
                 categoriesAdapter.notifyDataSetChanged();
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        categoryList = db.getCategories(null);
+        categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
         categoriesAdapter.setCategories(categoryList);
         categoriesAdapter.notifyDataSetChanged();
