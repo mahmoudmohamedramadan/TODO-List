@@ -101,12 +101,27 @@ public class AddNewTask extends AppCompatDialogFragment {
                 if (finalIsUpdated) {
                     db.updateTaskText(bundle.getInt("id"), text);
                 } else {
-                    TODOModel task = new TODOModel();
-                    task.setTask(text);
-                    task.setStatus(0);
-                    task.setDate(null);
-                    task.setCategory_id(Integer.parseInt(category_id));
-                    db.insertTask(task);
+                    if (db.getTaskCount(text, Integer.parseInt(category_id)) < 1) {
+                        TODOModel task = new TODOModel();
+                        task.setTask(text);
+                        task.setStatus(0);
+                        task.setDate(null);
+                        task.setCategory_id(Integer.parseInt(category_id));
+                        db.insertTask(task);
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddNewTask.this.getActivity());
+                        builder.setTitle("Warning");
+                        builder.setMessage("This task is already exists");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.rgb(0, 130, 170));
+                    }
                 }
                 dismiss();
             }
