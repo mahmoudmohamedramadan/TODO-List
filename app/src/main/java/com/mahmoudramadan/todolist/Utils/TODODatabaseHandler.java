@@ -53,14 +53,12 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void insertTask(TODOModel task) {
-        if (getTaskCount(task.getTask(), task.getCategory_id()) < 1) {
-            ContentValues cv = new ContentValues();
-            cv.put("task", task.getTask());
-            cv.put("status", 0);
-            cv.put("date", task.getDate());
-            cv.put("category_id", task.getCategory_id());
-            db.insert(TODO_TABLE, null, cv);
-        }
+        ContentValues cv = new ContentValues();
+        cv.put("task", task.getTask());
+        cv.put("status", 0);
+        cv.put("date", task.getDate());
+        cv.put("category_id", task.getCategory_id());
+        db.insert(TODO_TABLE, null, cv);
     }
 
     public List<TODOModel> getTasks(String category_id) {
