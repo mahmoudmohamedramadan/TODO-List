@@ -102,9 +102,24 @@ public class AddNewCategory extends AppCompatDialogFragment {
                 if (finalIsUpdated) {
                     db.updateCategoryText(bundle.getInt("id"), text);
                 } else {
-                    CategoryModel category = new CategoryModel();
-                    category.setCategory(text);
-                    db.insertCategory(category);
+                    if (db.getCategoryCount(text) < 1) {
+                        CategoryModel category = new CategoryModel();
+                        category.setCategory(text);
+                        db.insertCategory(category);
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddNewCategory.this.getActivity());
+                        builder.setTitle("Warning");
+                        builder.setMessage("This category is already exists");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.rgb(0, 130, 170));
+                    }
                 }
                 dismiss();
             }
