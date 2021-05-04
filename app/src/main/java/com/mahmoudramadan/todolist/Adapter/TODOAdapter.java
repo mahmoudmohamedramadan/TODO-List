@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,10 +46,11 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         holder.todoCheckBox.setText(item.getTask());
         holder.selectedDateTextView.setText(item.getDate());
         holder.todoCheckBox.setChecked(toBoolean(item.getStatus()));
-        holder.todoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        holder.todoCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) db.updateTaskStatus(item.getId(), 1);
+            public void onClick(View v) {
+                if (holder.todoCheckBox.isChecked()) db.updateTaskStatus(item.getId(), 1);
                 else db.updateTaskStatus(item.getId(), 0);
             }
         });
