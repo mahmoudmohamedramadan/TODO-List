@@ -66,7 +66,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(TODO_TABLE, null, query, selectionArgs, null, null, "status DESC", null);
+            cursor = db.query(TODO_TABLE, null, query, selectionArgs, null, null, "status ASC", null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
@@ -87,8 +87,8 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     }
 
     public int getTaskCount(String task, int category_id) {
-        return db.query(TODO_TABLE, new String[]{"task"}, "task =? AND category_id=?", new String[]{task, String.valueOf(category_id)},
-                null, null, null, null).getCount();
+        return db.query(TODO_TABLE, new String[]{"task"}, "task =? AND category_id=?",
+                new String[]{task, String.valueOf(category_id)}, null, null, null, "1").getCount();
     }
 
     public void updateTaskText(int id, String newTaskValue) {
