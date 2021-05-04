@@ -17,7 +17,6 @@ import com.mahmoudramadan.todolist.Model.TODOModel;
 import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TasksActivity extends AppCompatActivity implements DialogCloseListener {
@@ -54,7 +53,6 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         taskSearchView.setQueryHint("Search in " + getIntent().getStringExtra("category"));
 
         taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
-        Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
 
         addNewTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +73,6 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
             public boolean onQueryTextChange(String newText) {
                 taskList = db.getTasks("category_id =? AND task LIKE ?",
                         new String[]{String.valueOf(getIntent().getStringExtra("category_id")), newText + "%"});
-                Collections.reverse(taskList);
                 tasksAdapter.setTasks(taskList);
                 tasksAdapter.notifyDataSetChanged();
                 return true;
@@ -86,7 +83,6 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
     @Override
     public void handleDialogClose(DialogInterface dialog) {
         taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
-        Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();
     }
