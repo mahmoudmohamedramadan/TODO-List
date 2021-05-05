@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist;
+package com.mahmoudramadan.todo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,23 +16,23 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.mahmoudramadan.todolist.Model.TODOModel;
-import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
+import com.mahmoudramadan.todo.Model.CategoryModel;
+import com.mahmoudramadan.todo.Utils.CategoryDatabaseHandler;
 
-public class AddNewTask extends AppCompatDialogFragment {
+public class AddNewCategory extends AppCompatDialogFragment {
 
-    public static String TAG = "AddNewTaskDialog", category_id;
-    private TextView newTaskTitle;
-    private EditText newTaskEditText;
-    private Button saveTaskButton;
+    public static String TAG = "AddNewCategoryDialog";
+    private TextView newCategoryTitle;
+    private EditText newCategoryEditText;
+    private Button saveCategoryButton;
 
-    public static AddNewTask newInstance() {
-        return new AddNewTask();
+    public static AddNewCategory newInstance() {
+        return new AddNewCategory();
     }
 
-    private void setNewTaskButtonColor(boolean isEnabled, int textColor) {
-        saveTaskButton.setEnabled(isEnabled);
-        saveTaskButton.setTextColor(textColor);
+    private void setNewCategoryButtonColor(boolean isEnabled, int textColor) {
+        saveCategoryButton.setEnabled(isEnabled);
+        saveCategoryButton.setTextColor(textColor);
     }
 
     @Override
@@ -43,14 +43,15 @@ public class AddNewTask extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.new_task, null);
+        View view = inflater.inflate(R.layout.new_category, null);
 
-        newTaskTitle = view.findViewById(R.id.newTaskTitle);
-        newTaskEditText = view.findViewById(R.id.newTaskEditText);
-        saveTaskButton = view.findViewById(R.id.saveTaskButton);
+        newCategoryTitle = view.findViewById(R.id.newCategoryTitle);
+        newCategoryEditText = view.findViewById(R.id.newCategoryEditText);
+        saveCategoryButton = view.findViewById(R.id.saveCategoryButton);
 
-        setNewTaskButtonColor(false, Color.GRAY);
+        setNewCategoryButtonColor(false, Color.GRAY);
 
         builder.setView(view).setCustomTitle(new TextView(getContext()));
         return builder.create();
@@ -60,7 +61,7 @@ public class AddNewTask extends AppCompatDialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        TODODatabaseHandler db = new TODODatabaseHandler(getActivity());
+        CategoryDatabaseHandler db = new CategoryDatabaseHandler(getActivity());
         db.openDatabase();
 
         boolean isUpdated = false;
@@ -68,13 +69,13 @@ public class AddNewTask extends AppCompatDialogFragment {
 
         if (bundle != null) {
             isUpdated = true;
-            String task = bundle.getString("task");
-            newTaskTitle.setText("Edit Task");
-            newTaskEditText.setText(task);
-            newTaskEditText.setSelection(newTaskEditText.getText().length());
+            String task = bundle.getString("category");
+            newCategoryTitle.setText("Edit Category");
+            newCategoryEditText.setText(task);
+            newCategoryEditText.setSelection(newCategoryEditText.getText().length());
         }
 
-        newTaskEditText.addTextChangedListener(new TextWatcher() {
+        newCategoryEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -82,8 +83,8 @@ public class AddNewTask extends AppCompatDialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")) setNewTaskButtonColor(false, Color.GRAY);
-                else setNewTaskButtonColor(true, Color.rgb(0, 153, 204));
+                if (s.toString().equals("")) setNewCategoryButtonColor(false, Color.GRAY);
+                else setNewCategoryButtonColor(true, Color.rgb(0, 153, 204));
             }
 
             @Override
@@ -94,24 +95,21 @@ public class AddNewTask extends AppCompatDialogFragment {
 
         boolean finalIsUpdated = isUpdated;
 
-        saveTaskButton.setOnClickListener(new View.OnClickListener() {
+        saveCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = newTaskEditText.getText().toString();
+                String text = newCategoryEditText.getText().toString();
                 if (finalIsUpdated) {
-                    db.updateTaskText(bundle.getInt("id"), text);
+                    db.updateCategoryText(bundle.getInt("id"), text);
                 } else {
-                    if (db.getTaskCount(text, Integer.parseInt(category_id)) < 1) {
-                        TODOModel task = new TODOModel();
-                        task.setTask(text);
-                        task.setStatus(0);
-                        task.setDate(null);
-                        task.setCategory_id(Integer.parseInt(category_id));
-                        db.insertTask(task);
+                    if (db.getCategoryCount(text) < 1) {
+                        CategoryModel category = new CategoryModel();
+                        category.setCategory(text);
+                        db.insertCategory(category);
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AddNewTask.this.getActivity());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AddNewCategory.this.getActivity());
                         builder.setTitle("Warning");
-                        builder.setMessage("This task is already exists");
+                        builder.setMessage("This category is already exists");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

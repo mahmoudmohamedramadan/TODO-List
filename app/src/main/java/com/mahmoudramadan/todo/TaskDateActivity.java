@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist;
+package com.mahmoudramadan.todo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
+import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
 
 public class TaskDateActivity extends AppCompatDialogFragment {
 

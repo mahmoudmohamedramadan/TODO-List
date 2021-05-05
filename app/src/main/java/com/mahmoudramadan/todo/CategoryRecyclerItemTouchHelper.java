@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist;
+package com.mahmoudramadan.todo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahmoudramadan.todolist.Adapter.CategoryAdapter;
+import com.mahmoudramadan.todo.Adapter.CategoryAdapter;
 
 public class CategoryRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 

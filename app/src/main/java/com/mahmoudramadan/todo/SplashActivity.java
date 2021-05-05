@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist;
+package com.mahmoudramadan.todo;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist;
+package com.mahmoudramadan.todo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mahmoudramadan.todolist.Adapter.CategoryAdapter;
-import com.mahmoudramadan.todolist.Model.CategoryModel;
-import com.mahmoudramadan.todolist.Utils.CategoryDatabaseHandler;
+import com.mahmoudramadan.todo.Adapter.CategoryAdapter;
+import com.mahmoudramadan.todo.Model.CategoryModel;
+import com.mahmoudramadan.todo.Utils.CategoryDatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;

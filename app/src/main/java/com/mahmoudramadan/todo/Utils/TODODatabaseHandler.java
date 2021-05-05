@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist.Utils;
+package com.mahmoudramadan.todo.Utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,29 +6,32 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.mahmoudramadan.todolist.Model.TODOModel;
+import com.mahmoudramadan.todo.Model.TODOModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+public class TODODatabaseHandler extends SQLiteOpenHelper {
 
+    public SQLiteDatabase db;
     public static final int VERSION = 1;
-    public static final String NAME = "toDoListDatabase.db";
+    public static final String NAME = "TODOListDatabase.db";
     public static final String TODO_TABLE = "todos";
     public static final String ID = "id";
     public static final String COLUMN_NAME_TASK = "task";
     public static final String COLUMN_NAME_STATUS = "status";
     public static final String COLUMN_NAME_DATE = "date";
-    private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TABLE + " (" +
+    public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
+
+    private static final String CREATE_TODO_TABLE = "CREATE TABLE IF NOT EXISTS " + TODO_TABLE + "(" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NAME_TASK + " TEXT," +
             COLUMN_NAME_STATUS + " INTEGER," +
-            COLUMN_NAME_DATE + " TEXT)";
-    ;
-    private SQLiteDatabase db;
+            COLUMN_NAME_DATE + " TEXT," +
+            COLUMN_NAME_CATEGORY_ID + " INTEGER," +
+            "FOREIGN KEY(" + COLUMN_NAME_CATEGORY_ID + ") REFERENCES categories(id))";
 
-    public DatabaseHandler(Context context) {
+    public TODODatabaseHandler(Context context) {
         super(context, NAME, null, VERSION);
     }
 
@@ -52,17 +55,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void insertTask(TODOModel task) {
         ContentValues cv = new ContentValues();
         cv.put("task", task.getTask());
-        cv.put("date", task.getDate());
         cv.put("status", 0);
+        cv.put("date", task.getDate());
+        cv.put("category_id", task.getCategory_id());
         db.insert(TODO_TABLE, null, cv);
     }
 
-    public List<TODOModel> getTasks() {
+    public List<TODOModel> getTasks(String query, String[] selectionArgs) {
         List<TODOModel> taskList = new ArrayList<>();
         Cursor cursor = null;
         db.beginTransaction();
         try {
-            cursor = db.query(TODO_TABLE, null, null, null, null, null, null);
+            cursor = db.query(TODO_TABLE, null, query, selectionArgs, null, null, "status ASC", null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
@@ -80,6 +84,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         return taskList;
+    }
+
+    public int getTaskCount(String task, int category_id) {
+        return db.query(TODO_TABLE, new String[]{"task"}, "task =? AND category_id=?",
+                new String[]{task, String.valueOf(category_id)}, null, null, null, "1").getCount();
     }
 
     public void updateTaskText(int id, String newTaskValue) {

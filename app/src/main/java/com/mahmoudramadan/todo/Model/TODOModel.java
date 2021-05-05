@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist.Model;
+package com.mahmoudramadan.todo.Model;
 
 public class TODOModel {
     private int id, status, category_id;

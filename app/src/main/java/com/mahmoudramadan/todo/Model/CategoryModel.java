@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist.Model;
+package com.mahmoudramadan.todo.Model;
 
 public class CategoryModel {
     private int id;

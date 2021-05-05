@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist;
+package com.mahmoudramadan.todo;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mahmoudramadan.todolist.Adapter.TODOAdapter;
-import com.mahmoudramadan.todolist.Model.TODOModel;
-import com.mahmoudramadan.todolist.Utils.TODODatabaseHandler;
+import com.mahmoudramadan.todo.Adapter.TODOAdapter;
+import com.mahmoudramadan.todo.Model.TODOModel;
+import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.List;

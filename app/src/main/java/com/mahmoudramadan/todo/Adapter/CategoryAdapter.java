@@ -1,4 +1,4 @@
-package com.mahmoudramadan.todolist.Adapter;
+package com.mahmoudramadan.todo.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,12 @@ import android.widget.Button;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahmoudramadan.todolist.AddNewCategory;
-import com.mahmoudramadan.todolist.MainActivity;
-import com.mahmoudramadan.todolist.Model.CategoryModel;
-import com.mahmoudramadan.todolist.R;
-import com.mahmoudramadan.todolist.TasksActivity;
-import com.mahmoudramadan.todolist.Utils.CategoryDatabaseHandler;
+import com.mahmoudramadan.todo.AddNewCategory;
+import com.mahmoudramadan.todo.MainActivity;
+import com.mahmoudramadan.todo.Model.CategoryModel;
+import com.mahmoudramadan.todo.R;
+import com.mahmoudramadan.todo.TasksActivity;
+import com.mahmoudramadan.todo.Utils.CategoryDatabaseHandler;
 
 import java.util.List;
 
