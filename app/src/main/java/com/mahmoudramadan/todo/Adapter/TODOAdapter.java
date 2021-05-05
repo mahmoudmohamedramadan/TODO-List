@@ -48,21 +48,13 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         holder.selectedDateTextView.setText(item.getDate());
         holder.todoCheckBox.setChecked(toBoolean(item.getStatus()));
 
-        if (toBoolean(item.getStatus()))
-            holder.todoCheckBox.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        else
-            holder.todoCheckBox.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
+        if(holder.todoCheckBox.isChecked())holder.todoCheckBox.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         holder.todoCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.todoCheckBox.isChecked()) {
-                    db.updateTaskStatus(item.getId(), 1);
-                    holder.todoCheckBox.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    db.updateTaskStatus(item.getId(), 0);
-                    holder.todoCheckBox.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
-                }
+                if (holder.todoCheckBox.isChecked()) db.updateTaskStatus(item.getId(), 1);
+                else db.updateTaskStatus(item.getId(), 0);
             }
         });
 
