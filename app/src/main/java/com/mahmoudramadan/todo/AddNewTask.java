@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,7 +92,7 @@ public class AddNewTask extends AppCompatDialogFragment {
                 if (s.toString().equals(""))
                     setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
                 else
-                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.enabled_edit_text_border), false, Color.GRAY);
+                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.enabled_edit_text_border), true, Color.GRAY);
             }
 
             @Override
