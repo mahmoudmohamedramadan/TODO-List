@@ -46,6 +46,8 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TODORecyclerItemTouchHelper(tasksAdapter));
         itemTouchHelper.attachToRecyclerView(tasksRecycleView);
 
+        FloatingActionButton returnToCategoryButton = findViewById(R.id.returnToCategoryButton);
+
         TextView taskNameEditText = findViewById(R.id.taskNameEditText);
         taskNameEditText.setText(getIntent().getStringExtra("category"));
 
@@ -60,6 +62,13 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
             public void onClick(View v) {
                 AddNewTask.category_id = getIntent().getStringExtra("category_id");
                 AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
+            }
+        });
+
+        returnToCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
