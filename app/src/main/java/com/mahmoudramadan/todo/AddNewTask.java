@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.mahmoudramadan.todo.Model.TODOModel;
@@ -30,9 +33,10 @@ public class AddNewTask extends AppCompatDialogFragment {
         return new AddNewTask();
     }
 
-    private void setNewTaskButtonColor(boolean isEnabled, int textColor) {
+    private void setNewCategoryButtonColor(Drawable borderColor, boolean isEnabled, int textColor) {
+        newTaskEditText.setBackground(borderColor);
         saveTaskButton.setEnabled(isEnabled);
-        saveTaskButton.setTextColor(textColor);
+        saveTaskButton.setBackgroundColor(textColor);
     }
 
     @Override
@@ -40,6 +44,7 @@ public class AddNewTask extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -50,7 +55,7 @@ public class AddNewTask extends AppCompatDialogFragment {
         newTaskEditText = view.findViewById(R.id.newTaskEditText);
         saveTaskButton = view.findViewById(R.id.saveTaskButton);
 
-        setNewTaskButtonColor(false, Color.GRAY);
+        setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
 
         builder.setView(view).setCustomTitle(new TextView(getContext()));
         return builder.create();
@@ -80,10 +85,13 @@ public class AddNewTask extends AppCompatDialogFragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")) setNewTaskButtonColor(false, Color.GRAY);
-                else setNewTaskButtonColor(true, Color.rgb(0, 153, 204));
+                if (s.toString().equals(""))
+                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
+                else
+                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.enabled_edit_text_border), false, Color.GRAY);
             }
 
             @Override

@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.mahmoudramadan.todo.Model.CategoryModel;
@@ -30,9 +33,10 @@ public class AddNewCategory extends AppCompatDialogFragment {
         return new AddNewCategory();
     }
 
-    private void setNewCategoryButtonColor(boolean isEnabled, int textColor) {
+    private void setNewCategoryButtonColor(Drawable borderColor, boolean isEnabled, int textColor) {
+        newCategoryEditText.setBackground(borderColor);
         saveCategoryButton.setEnabled(isEnabled);
-        saveCategoryButton.setTextColor(textColor);
+        saveCategoryButton.setBackgroundColor(textColor);
     }
 
     @Override
@@ -40,6 +44,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -51,7 +56,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
         newCategoryEditText = view.findViewById(R.id.newCategoryEditText);
         saveCategoryButton = view.findViewById(R.id.saveCategoryButton);
 
-        setNewCategoryButtonColor(false, Color.GRAY);
+        setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
 
         builder.setView(view).setCustomTitle(new TextView(getContext()));
         return builder.create();
@@ -81,10 +86,13 @@ public class AddNewCategory extends AppCompatDialogFragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")) setNewCategoryButtonColor(false, Color.GRAY);
-                else setNewCategoryButtonColor(true, Color.rgb(0, 153, 204));
+                if (s.toString().equals(""))
+                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
+                else
+                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.enabled_edit_text_border), true, Color.rgb(0, 153, 204));
             }
 
             @Override
