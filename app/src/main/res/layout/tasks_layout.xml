@@ -48,4 +48,17 @@
         android:src="@drawable/ic_baseline_add"
         app:tint="@color/white" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/returnToCategoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/tasksRecycleView"
+        android:layout_alignLeft="@id/tasksRecycleView"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="32dp"
+        android:backgroundTint="@color/custom_dark_gray"
+        app:backgroundTint="@color/custom_dark_gray"
+        android:src="@drawable/ic_baseline_arrow_back"
+        app:tint="@color/white" />
+
 </RelativeLayout>
