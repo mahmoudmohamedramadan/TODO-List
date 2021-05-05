@@ -1,6 +1,7 @@
 package com.mahmoudramadan.todo.Adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         holder.todoCheckBox.setText(item.getTask());
         holder.selectedDateTextView.setText(item.getDate());
         holder.todoCheckBox.setChecked(toBoolean(item.getStatus()));
+
+        if(holder.todoCheckBox.isChecked())holder.todoCheckBox.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         holder.todoCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
