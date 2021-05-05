@@ -24,14 +24,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/taskNameEditText"
         android:layout_marginBottom="16dp"
+        android:focusable="false"
         android:iconifiedByDefault="false" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/taskSearchView"
         android:nestedScrollingEnabled="true"
+        android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,7 +46,6 @@
         android:layout_margin="32dp"
         android:backgroundTint="@color/custom_dark_blue"
         android:src="@drawable/ic_baseline_add"
-        app:backgroundTint="@android:color/transparent"
         app:tint="@color/white" />
 
 </RelativeLayout>
