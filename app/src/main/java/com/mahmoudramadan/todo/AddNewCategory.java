@@ -140,5 +140,6 @@ public class AddNewCategory extends AppCompatDialogFragment {
         if (activity instanceof DialogCloseListener) {
             ((DialogCloseListener) activity).handleDialogClose(dialog);
         }
+        dismiss();
     }
 }
