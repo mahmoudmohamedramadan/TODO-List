@@ -51,7 +51,24 @@
             android:layout_gravity="bottom"
             android:background="@color/custom_dark_blue"
             android:backgroundTint="@color/custom_dark_blue"
-            app:navigationIcon="@drawable/ic_baseline_settings" />
+            app:fabAlignmentMode="center"
+            app:menu="@menu/bottom_app_bar_items">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_baseline_favorite" />
+
+            </LinearLayout>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addNewCategory"
