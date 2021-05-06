@@ -1,11 +1,13 @@
 package com.mahmoudramadan.todo;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
@@ -21,12 +23,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DialogCloseListener {
 
-    private RecyclerView categoriesRecycleView;
     private CategoryAdapter categoriesAdapter;
     private List<CategoryModel> categoryList;
     private CategoryDatabaseHandler db;
-    private FloatingActionButton addNewCategory;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +39,12 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
         categoryList = new ArrayList<>();
 
-        categoriesRecycleView = findViewById(R.id.categoriesRecycleView);
+        RecyclerView categoriesRecycleView = findViewById(R.id.categoriesRecycleView);
         categoriesRecycleView.setLayoutManager(new LinearLayoutManager(this));
         categoriesAdapter = new CategoryAdapter(db, this);
         categoriesRecycleView.setAdapter(categoriesAdapter);
 
-        addNewCategory = findViewById(R.id.addNewCategory);
+        FloatingActionButton addNewCategory = findViewById(R.id.addNewCategory);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new CategoryRecyclerItemTouchHelper(categoriesAdapter));
         itemTouchHelper.attachToRecyclerView(categoriesRecycleView);
 
