@@ -37,16 +37,33 @@
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addNewCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/categoriesRecycleView"
-        android:layout_alignRight="@id/categoriesRecycleView"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="32dp"
-        android:backgroundTint="@color/custom_dark_blue"
-        android:src="@drawable/ic_baseline_category"
-        app:tint="@color/white" />
+    <!-- CoordinatorLayout-->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/navigatorCoordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Note: A RecyclerView can also be used -->
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/custom_dark_blue"
+            android:backgroundTint="@color/custom_dark_blue"
+            app:navigationIcon="@drawable/ic_baseline_settings" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addNewCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="32dp"
+            android:backgroundTint="@color/custom_dark_blue"
+            android:src="@drawable/ic_baseline_category"
+            app:layout_anchor="@id/bottomAppBar"
+            app:tint="@color/white" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>
