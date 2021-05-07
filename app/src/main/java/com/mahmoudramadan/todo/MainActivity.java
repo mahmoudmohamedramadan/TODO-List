@@ -2,6 +2,7 @@ package com.mahmoudramadan.todo;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mahmoudramadan.todo.Adapter.CategoryAdapter;
 import com.mahmoudramadan.todo.Model.CategoryModel;
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Load stored locale of my application
+        LocaleManager.loadLocale(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
@@ -38,17 +44,19 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         db.openDatabase();
 
         categoryList = new ArrayList<>();
-
+        // RecyclerView
         RecyclerView categoriesRecycleView = findViewById(R.id.categoriesRecycleView);
         categoriesRecycleView.setLayoutManager(new LinearLayoutManager(this));
         categoriesAdapter = new CategoryAdapter(db, this);
         categoriesRecycleView.setAdapter(categoriesAdapter);
-
+        // FloatingActionButton
         FloatingActionButton addNewCategory = findViewById(R.id.addNewCategory);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new CategoryRecyclerItemTouchHelper(categoriesAdapter));
         itemTouchHelper.attachToRecyclerView(categoriesRecycleView);
-
+        // SearchView
         SearchView categorySearchView = findViewById(R.id.categorySearchView);
+        // BottomAppBar
+        BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
 
         categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
@@ -73,6 +81,19 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 Collections.reverse(categoryList);
                 categoriesAdapter.setCategories(categoryList);
                 categoriesAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.ar) {
+                    LocaleManager.setLocale(MainActivity.this, "ar");
+                } else {
+                    LocaleManager.setLocale(MainActivity.this, "en");
+                }
+                recreate();
                 return true;
             }
         });
