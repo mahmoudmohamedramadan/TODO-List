@@ -3,9 +3,11 @@
     <string name="categories">التصنيفات</string>
     <string name="search_in_categories">البحث في التصنيفات</string>
     <string name="add_new_category">اضافة تصنيف جديد</string>
+    <string name="edit_category">تعديل التصنيف</string>
     <string name="type_a_category">اكتب التصنيف</string>
     <string name="search_in_tasks">البحث في</string>
     <string name="add_new_task">اضافة مهمة جديدة</string>
+    <string name="edit_task">تعديل المهمة</string>
     <string name="type_a_task">اكتب المهمة</string>
     <string name="choose_task_date">اختر تاريخ المهمة</string>
     <string name="save">حفظ</string>
