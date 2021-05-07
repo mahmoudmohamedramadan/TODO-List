@@ -10,7 +10,7 @@
         android:fontFamily="monospace"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="Add New Category"
+        android:text="@string/add_new_category"
         android:textAlignment="center"
         android:textColor="@color/custom_dark_gray"
         android:textSize="24sp" />
@@ -24,7 +24,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/disabled_edit_text_border"
         android:fontFamily="monospace"
-        android:hint="Type a category"
+        android:hint="@string/type_a_category"
         android:maxLength="30"
         android:padding="20dp"
         android:singleLine="true"
@@ -39,7 +39,7 @@
         android:layout_margin="20dp"
         android:background="@color/custom_dark_blue"
         android:fontFamily="monospace"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="16dp" />
 </RelativeLayout>

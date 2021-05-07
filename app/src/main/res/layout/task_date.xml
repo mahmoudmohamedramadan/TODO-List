@@ -13,7 +13,7 @@
         android:fontFamily="monospace"
         android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Choose Task Date"
+        android:text="@string/choose_task_date"
         android:textAlignment="center"
         android:textColor="@color/custom_dark_gray"
         android:textSize="24sp" />
@@ -38,7 +38,7 @@
         android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
         android:fontFamily="monospace"
-        android:text="Save"
+        android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="16dp" />
