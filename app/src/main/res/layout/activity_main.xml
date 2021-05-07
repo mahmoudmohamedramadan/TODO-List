@@ -31,7 +31,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoriesRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@+id/categorySearchView"
         android:nestedScrollingEnabled="true"
         android:scrollbars="vertical"
@@ -41,7 +41,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/navigatorCoordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true">
 
         <!-- Note: A RecyclerView can also be used -->
         <com.google.android.material.bottomappbar.BottomAppBar
