@@ -11,4 +11,14 @@
     <string name="type_a_task">اكتب المهمة</string>
     <string name="choose_task_date">اختر تاريخ المهمة</string>
     <string name="save">حفظ</string>
+    <string name="warning">تحذير</string>
+    <string name="ok">حسنا</string>
+    <string name="warning_category_message">هذا التصنيف موجود بالفعل</string>
+    <string name="warning_todo_message">هذه المهمة موجودة بالفعل</string>
+    <string name="delete">حذف</string>
+    <string name="cancel">الغاء</string>
+    <string name="delete_category">حذف التصنيف</string>
+    <string name="delete_category_message">هل انت متأكد من حذف هذا التصنيف</string>
+    <string name="delete_task">حذف المهمة</string>
+    <string name="delete_task_message">هل انت متأكد من حذف هذه المهمة؟</string>
 </resources>
