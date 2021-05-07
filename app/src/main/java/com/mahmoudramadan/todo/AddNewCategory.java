@@ -118,7 +118,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
                         AlertDialog.Builder builder = new AlertDialog.Builder(AddNewCategory.this.getActivity());
                         builder.setTitle(getString(R.string.warning));
                         builder.setMessage(getString(R.string.warning_category_message));
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
