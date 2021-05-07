@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,7 +52,13 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
 
         if (holder.todoCheckBox.isChecked())
             holder.todoCheckBox.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        else holder.todoCheckBox.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
+        else
+            holder.todoCheckBox.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
+
+        if (item.getFavorite() == 0)
+            holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_non_favorite);
+        else
+            holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_favorite);
 
         holder.todoCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +84,12 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if (holder.addToFavouriteImageView.getTag() == "non_favourite") {
+                if (holder.addToFavouriteImageView.getTag().toString() == "non_favourite") {
+                    db.updateTaskFavorite(item.getId(), 1);
                     holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_favorite);
                     holder.addToFavouriteImageView.setTag("favourite");
                 } else {
+                    db.updateTaskFavorite(item.getId(), 0);
                     holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_non_favorite);
                     holder.addToFavouriteImageView.setTag("non_favourite");
                 }
