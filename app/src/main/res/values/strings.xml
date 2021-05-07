@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TODO List, Task with Reminder</string>
+    <string name="categories">Categories</string>
+    <string name="search_in_categories">Search in categories</string>
+    <string name="add_new_category">Add New Category</string>
+    <string name="type_a_category">Type a category</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="type_a_task">Type a task</string>
+    <string name="choose_task_date">Choose Task Date</string>
+    <string name="save">Save</string>
 </resources>
