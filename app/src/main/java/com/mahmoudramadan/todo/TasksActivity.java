@@ -36,27 +36,27 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         db.onCreate(db.db);
 
         taskList = new ArrayList<>();
-
+        // RecyclerView
         RecyclerView tasksRecycleView = findViewById(R.id.tasksRecycleView);
         tasksRecycleView.setLayoutManager(new LinearLayoutManager(this));
         tasksAdapter = new TODOAdapter(db, this);
         tasksRecycleView.setAdapter(tasksAdapter);
-
+        // addNewTaskButton FloatingActionButton
         FloatingActionButton addNewTaskButton = findViewById(R.id.addNewTaskButton);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TODORecyclerItemTouchHelper(tasksAdapter));
         itemTouchHelper.attachToRecyclerView(tasksRecycleView);
-
+        // returnToCategoryButton FloatingActionButton
         FloatingActionButton returnToCategoryButton = findViewById(R.id.returnToCategoryButton);
-
+        // TextView
         TextView taskNameEditText = findViewById(R.id.taskNameEditText);
         taskNameEditText.setText(getIntent().getStringExtra("category"));
-
+        // SearchView
         SearchView taskSearchView = findViewById(R.id.taskSearchView);
-        taskSearchView.setQueryHint("Search in " + getIntent().getStringExtra("category"));
+        taskSearchView.setQueryHint(getString(R.string.search_in_tasks) + " " + getIntent().getStringExtra("category"));
 
         taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
         tasksAdapter.setTasks(taskList);
-
+        // add addNewTaskButton's onClickListener
         addNewTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,14 +64,14 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
                 AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
             }
         });
-
+        // add returnToCategoryButton's onClickListener
         returnToCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
+        // add taskSearchView's onQueryTextListener
         taskSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
