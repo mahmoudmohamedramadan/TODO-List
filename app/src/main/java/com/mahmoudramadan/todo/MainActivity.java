@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
         categoriesAdapter.setCategories(categoryList);
-
+        // add addNewCategory's onClickListener
         addNewCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddNewCategory.newInstance().show(getSupportFragmentManager(), AddNewCategory.TAG);
             }
         });
-
+        // add taskSearchView's onQueryTextListener
         categorySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -84,15 +84,14 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 return true;
             }
         });
-
+        // add bottomAppBar's onMenuItemClickListener
         bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.ar) {
+                if (item.getItemId() == R.id.ar)
                     LocaleManager.setLocale(MainActivity.this, "ar");
-                } else {
+                else
                     LocaleManager.setLocale(MainActivity.this, "en");
-                }
                 recreate();
                 return true;
             }
