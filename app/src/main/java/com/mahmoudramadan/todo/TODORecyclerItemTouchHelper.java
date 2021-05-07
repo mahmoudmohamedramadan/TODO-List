@@ -37,15 +37,15 @@ public class TODORecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback 
         final int position = viewHolder.getAdapterPosition();
         if (isSwipedLeft) {
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
-            builder.setTitle("Delete Task");
-            builder.setMessage("Are you sure you want to delete this task?");
-            builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+            builder.setTitle(viewHolder.itemView.getContext().getString(R.string.delete_task));
+            builder.setMessage(viewHolder.itemView.getContext().getString(R.string.delete_task_message));
+            builder.setPositiveButton(viewHolder.itemView.getContext().getString(R.string.delete), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     adapter.deleteItem(position);
                 }
             });
-            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(viewHolder.itemView.getContext().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -60,7 +60,7 @@ public class TODORecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback 
             AlertDialog dialog = builder.create();
             dialog.show();
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.rgb(0,130,170));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.rgb(0, 130, 170));
         } else {
             adapter.updateItemTaskText(position);
         }
