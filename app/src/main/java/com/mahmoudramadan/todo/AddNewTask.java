@@ -74,7 +74,7 @@ public class AddNewTask extends AppCompatDialogFragment {
         if (bundle != null) {
             isUpdated = true;
             String task = bundle.getString("task");
-            newTaskTitle.setText("Edit Task");
+            newTaskTitle.setText(getString(R.string.edit_task));
             newTaskEditText.setText(task);
             newTaskEditText.setSelection(newTaskEditText.getText().length());
         }

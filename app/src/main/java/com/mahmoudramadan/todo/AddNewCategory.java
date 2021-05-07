@@ -75,7 +75,7 @@ public class AddNewCategory extends AppCompatDialogFragment {
         if (bundle != null) {
             isUpdated = true;
             String task = bundle.getString("category");
-            newCategoryTitle.setText("Edit Category");
+            newCategoryTitle.setText(getString(R.string.edit_category));
             newCategoryEditText.setText(task);
             newCategoryEditText.setSelection(newCategoryEditText.getText().length());
         }
