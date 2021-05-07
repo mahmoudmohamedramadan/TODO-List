@@ -21,6 +21,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_TASK = "task";
     public static final String COLUMN_NAME_STATUS = "status";
     public static final String COLUMN_NAME_DATE = "date";
+    public static final String COLUMN_NAME_FAVORITE= "favorite";
     public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
 
     private static final String CREATE_TODO_TABLE = "CREATE TABLE IF NOT EXISTS " + TODO_TABLE + "(" +
@@ -28,6 +29,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
             COLUMN_NAME_TASK + " TEXT," +
             COLUMN_NAME_STATUS + " INTEGER," +
             COLUMN_NAME_DATE + " TEXT," +
+            COLUMN_NAME_FAVORITE + " INTEGER," +
             COLUMN_NAME_CATEGORY_ID + " INTEGER," +
             "FOREIGN KEY(" + COLUMN_NAME_CATEGORY_ID + ") REFERENCES categories(id))";
 
@@ -57,6 +59,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         cv.put("task", task.getTask());
         cv.put("status", 0);
         cv.put("date", task.getDate());
+        cv.put("favorite", task.getFavorite());
         cv.put("category_id", task.getCategory_id());
         db.insert(TODO_TABLE, null, cv);
     }
@@ -75,6 +78,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
                         task.setTask(cursor.getString(cursor.getColumnIndex("task")));
                         task.setDate(cursor.getString(cursor.getColumnIndex("date")));
                         task.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
+                        task.setFavorite(cursor.getInt(cursor.getColumnIndex("favorite")));
                         taskList.add(task);
                     } while (cursor.moveToNext());
                 }
@@ -106,6 +110,12 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public void updateTaskDate(int id, String newTaskDate) {
         ContentValues cv = new ContentValues();
         cv.put("date", newTaskDate);
+        db.update(TODO_TABLE, cv, "id=?", new String[]{String.valueOf(id)});
+    }
+
+    public void updateTaskFavorite(int id, int newTaskFavorite) {
+        ContentValues cv = new ContentValues();
+        cv.put("favorite", newTaskFavorite);
         db.update(TODO_TABLE, cv, "id=?", new String[]{String.valueOf(id)});
     }
 
