@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/arabicItem"
+        android:id="@+id/ar"
         android:contentDescription="Here you can change language of application to arabic"
         android:title="عربي"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/englishItem"
+        android:id="@+id/en"
         android:contentDescription="Here you can change language of application to english"
         android:title="English"
         app:showAsAction="never" />
