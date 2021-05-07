@@ -114,12 +114,13 @@ public class AddNewTask extends AppCompatDialogFragment {
                         task.setTask(text);
                         task.setStatus(0);
                         task.setDate(null);
+                        task.setFavorite(0);
                         task.setCategory_id(Integer.parseInt(category_id));
                         db.insertTask(task);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(AddNewTask.this.getActivity());
-                        builder.setTitle("Warning");
-                        builder.setMessage("This task is already exists");
+                        builder.setTitle(getString(R.string.warning));
+                        builder.setMessage(getString(R.string.warning_todo_message));
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

@@ -116,8 +116,8 @@ public class AddNewCategory extends AppCompatDialogFragment {
                         db.insertCategory(category);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(AddNewCategory.this.getActivity());
-                        builder.setTitle("Warning");
-                        builder.setMessage("This category is already exists");
+                        builder.setTitle(getString(R.string.warning));
+                        builder.setMessage(getString(R.string.warning_category_message));
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
