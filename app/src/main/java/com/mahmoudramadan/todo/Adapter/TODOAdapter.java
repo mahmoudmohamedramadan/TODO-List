@@ -56,7 +56,7 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         else
             holder.todoCheckBox.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
 
-        if (holder.addToFavouriteImageButton.getBackground() == getContext().getDrawable(R.drawable.ic_baseline_favorite))
+        if (item.getFavorite() == 0)
             holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_non_favorite));
         else
             holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_favorite));
@@ -82,15 +82,16 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         });
 
         holder.addToFavouriteImageButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if (holder.addToFavouriteImageButton.getBackground() == getContext().getDrawable(R.drawable.ic_baseline_non_favorite)) {
+                if (holder.addToFavouriteImageButton.getTag() == "non_favorite") {
                     db.updateTaskFavorite(item.getId(), 1);
-                    holder.addToFavouriteImageButton.setImageResource(R.drawable.ic_baseline_favorite);
+                    holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_favorite));
+                    holder.addToFavouriteImageButton.setTag("favorite");
                 } else {
                     db.updateTaskFavorite(item.getId(), 0);
-                    holder.addToFavouriteImageButton.setImageResource(R.drawable.ic_baseline_non_favorite);
+                    holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_non_favorite));
+                    holder.addToFavouriteImageButton.setTag("non_favorite");
                 }
             }
         });
