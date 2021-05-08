@@ -24,6 +24,7 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
     private TODOAdapter tasksAdapter;
     private List<TODOModel> taskList;
     private TODODatabaseHandler db;
+    private TextView taskTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         // returnToCategoryButton FloatingActionButton
         FloatingActionButton returnToCategoryButton = findViewById(R.id.returnToCategoryButton);
         // TextView
-        TextView taskTextView = findViewById(R.id.taskTextView);
+        taskTextView = findViewById(R.id.taskTextView);
         // SearchView
         SearchView taskSearchView = findViewById(R.id.taskSearchView);
         // if intent has category_id then the opened intent from category button click else it actually from favorites button
@@ -102,7 +103,10 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
+        if (taskTextView.getText() != getString(R.string.favorites))
+            taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
+        else
+            taskList = db.getTasks("favorite=?", new String[]{"1"});
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();
     }
