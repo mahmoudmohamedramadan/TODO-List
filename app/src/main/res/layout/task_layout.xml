@@ -61,8 +61,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="60dp"
             android:background="@drawable/ic_baseline_non_favorite"
-            android:gravity="center_horizontal"
-            android:tag="non_favourite" />
+            android:gravity="center_horizontal" />
 
     </RelativeLayout>
 
