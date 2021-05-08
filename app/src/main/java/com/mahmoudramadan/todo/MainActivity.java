@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         SearchView categorySearchView = findViewById(R.id.categorySearchView);
         // BottomAppBar
         BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
+        // ImageView
+        ImageView favoriteImageView = findViewById(R.id.favoriteImageView);
 
         categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
@@ -66,6 +70,14 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
             @Override
             public void onClick(View v) {
                 AddNewCategory.newInstance().show(getSupportFragmentManager(), AddNewCategory.TAG);
+            }
+        });
+        // add favoriteImageView's onClickListener
+        favoriteImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TasksActivity.class);
+                startActivity(intent);
             }
         });
         // add taskSearchView's onQueryTextListener
