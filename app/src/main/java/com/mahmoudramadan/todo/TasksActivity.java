@@ -48,8 +48,8 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         // returnToCategoryButton FloatingActionButton
         FloatingActionButton returnToCategoryButton = findViewById(R.id.returnToCategoryButton);
         // TextView
-        TextView taskNameEditText = findViewById(R.id.taskNameEditText);
-        taskNameEditText.setText(getIntent().getStringExtra("category"));
+        TextView taskTextView = findViewById(R.id.taskTextView);
+        taskTextView.setText(getIntent().getStringExtra("category"));
         // SearchView
         SearchView taskSearchView = findViewById(R.id.taskSearchView);
         taskSearchView.setQueryHint(getString(R.string.search_in_tasks) + " " + getIntent().getStringExtra("category"));
