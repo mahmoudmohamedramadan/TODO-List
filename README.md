@@ -6,7 +6,7 @@ This is a TODO List android application ✌✨
  <li>CRUD with Category</li>
  <li>CRUD with Tasks</li>
  <li>Choose date of your task</li>
- <li>Prevent Category/Task duplication/li>
+ <li>Prevent Category/Task duplication</li>
  <li>Add task to favorites list</li>
  <li>CRUD with favorites</li>
  <li>Provide English/Arabic Language</li>
