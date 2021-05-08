@@ -53,15 +53,15 @@
             android:textColor="@color/custom_dark_gray"
             android:textSize="15sp" />
 
-        <ImageView
-            android:id="@+id/addToFavouriteImageView"
+        <ImageButton
+            android:id="@+id/addToFavouriteImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="60dp"
+            android:background="@drawable/ic_baseline_non_favorite"
             android:gravity="center_horizontal"
-            android:src="@drawable/ic_baseline_non_favorite"
             android:tag="non_favourite" />
 
     </RelativeLayout>

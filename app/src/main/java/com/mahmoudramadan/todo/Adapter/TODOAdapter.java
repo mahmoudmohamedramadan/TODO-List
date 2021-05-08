@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -42,6 +42,7 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         return new ViewHolder(itemView);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         db.openDatabase();
@@ -55,10 +56,10 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         else
             holder.todoCheckBox.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
 
-        if (item.getFavorite() == 0)
-            holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_non_favorite);
+        if (holder.addToFavouriteImageButton.getBackground() == getContext().getDrawable(R.drawable.ic_baseline_favorite))
+            holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_non_favorite));
         else
-            holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_favorite);
+            holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_favorite));
 
         holder.todoCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +81,16 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
             }
         });
 
-        holder.addToFavouriteImageView.setOnClickListener(new View.OnClickListener() {
+        holder.addToFavouriteImageButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if (holder.addToFavouriteImageView.getTag().toString() == "non_favourite") {
+                if (holder.addToFavouriteImageButton.getBackground() == getContext().getDrawable(R.drawable.ic_baseline_non_favorite)) {
                     db.updateTaskFavorite(item.getId(), 1);
-                    holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_favorite);
-                    holder.addToFavouriteImageView.setTag("favourite");
+                    holder.addToFavouriteImageButton.setImageResource(R.drawable.ic_baseline_favorite);
                 } else {
                     db.updateTaskFavorite(item.getId(), 0);
-                    holder.addToFavouriteImageView.setImageResource(R.drawable.ic_baseline_non_favorite);
-                    holder.addToFavouriteImageView.setTag("non_favourite");
+                    holder.addToFavouriteImageButton.setImageResource(R.drawable.ic_baseline_non_favorite);
                 }
             }
         });
@@ -146,14 +145,14 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         CheckBox todoCheckBox;
         TextView selectedDateTextView;
         FloatingActionButton datePickerButton;
-        ImageView addToFavouriteImageView;
+        ImageButton addToFavouriteImageButton;
 
         public ViewHolder(View view) {
             super(view);
             todoCheckBox = view.findViewById(R.id.todoCheckBox);
             selectedDateTextView = view.findViewById(R.id.selectedDateTextView);
             datePickerButton = view.findViewById(R.id.datePickerButton);
-            addToFavouriteImageView = view.findViewById(R.id.addToFavouriteImageView);
+            addToFavouriteImageButton = view.findViewById(R.id.addToFavouriteImageButton);
         }
     }
 }

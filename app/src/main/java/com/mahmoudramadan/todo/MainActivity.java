@@ -13,7 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         // BottomAppBar
         BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
         // ImageView
-        ImageView favoriteImageView = findViewById(R.id.favoriteImageView);
+        ImageButton favoritesImageButton = findViewById(R.id.favoritesImageButton);
 
         categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 AddNewCategory.newInstance().show(getSupportFragmentManager(), AddNewCategory.TAG);
             }
         });
-        // add favoriteImageView's onClickListener
-        favoriteImageView.setOnClickListener(new View.OnClickListener() {
+        // add favoriteImageButton's onClickListener
+        favoritesImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TasksActivity.class);
