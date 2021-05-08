@@ -49,12 +49,20 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
         FloatingActionButton returnToCategoryButton = findViewById(R.id.returnToCategoryButton);
         // TextView
         TextView taskTextView = findViewById(R.id.taskTextView);
-        taskTextView.setText(getIntent().getStringExtra("category"));
         // SearchView
         SearchView taskSearchView = findViewById(R.id.taskSearchView);
-        taskSearchView.setQueryHint(getString(R.string.search_in_tasks) + " " + getIntent().getStringExtra("category"));
-
-        taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
+        // if intent has category_id then the opened intent from category button click else it actually from favorites button
+        if (getIntent().hasExtra("category_id")) {
+            taskList = db.getTasks("category_id =?", new String[]{String.valueOf(getIntent().getStringExtra("category_id"))});
+            taskTextView.setText(getIntent().getStringExtra("category"));
+            taskSearchView.setQueryHint(getString(R.string.search_in_tasks) + " " + getIntent().getStringExtra("category"));
+            addNewTaskButton.setVisibility(View.VISIBLE);
+        } else {
+            taskList = db.getTasks("favorite =?", new String[]{"1"});
+            taskTextView.setText(getString(R.string.favorites));
+            taskSearchView.setQueryHint(getString(R.string.search_favorites));
+            addNewTaskButton.setVisibility(View.INVISIBLE);
+        }
         tasksAdapter.setTasks(taskList);
         // add addNewTaskButton's onClickListener
         addNewTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +88,11 @@ public class TasksActivity extends AppCompatActivity implements DialogCloseListe
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                taskList = db.getTasks("category_id =? AND task LIKE ?",
-                        new String[]{String.valueOf(getIntent().getStringExtra("category_id")), newText + "%"});
+                if (taskTextView.getText() != getString(R.string.favorites))
+                    taskList = db.getTasks("category_id =? AND task LIKE ?",
+                            new String[]{String.valueOf(getIntent().getStringExtra("category_id")), newText + "%"});
+                else
+                    taskList = db.getTasks("favorite=? AND task LIKE ?", new String[]{"1", newText + "%"});
                 tasksAdapter.setTasks(taskList);
                 tasksAdapter.notifyDataSetChanged();
                 return true;
