@@ -29,6 +29,7 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
     private List<TODOModel> todoList;
     private TasksActivity activity;
     private TODODatabaseHandler db;
+    private boolean imageButtonIsClicked =false;
 
     public TODOAdapter(TODODatabaseHandler db, TasksActivity activity) {
         this.db = db;
@@ -84,14 +85,13 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         holder.addToFavouriteImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.addToFavouriteImageButton.getTag() == "non_favorite") {
+                imageButtonIsClicked = !imageButtonIsClicked;
+                if (imageButtonIsClicked) {
                     db.updateTaskFavorite(item.getId(), 1);
                     holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_favorite));
-                    holder.addToFavouriteImageButton.setTag("favorite");
                 } else {
                     db.updateTaskFavorite(item.getId(), 0);
                     holder.addToFavouriteImageButton.setBackground(getContext().getDrawable(R.drawable.ic_baseline_non_favorite));
-                    holder.addToFavouriteImageButton.setTag("non_favorite");
                 }
             }
         });
