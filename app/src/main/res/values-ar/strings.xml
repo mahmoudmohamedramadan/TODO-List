@@ -18,7 +18,9 @@
     <string name="delete">حذف</string>
     <string name="cancel">الغاء</string>
     <string name="delete_category">حذف التصنيف</string>
-    <string name="delete_category_message">هل انت متأكد من حذف هذا التصنيف</string>
+    <string name="delete_category_message">هل انت متأكد من حذف هذا التصنيف؟</string>
     <string name="delete_task">حذف المهمة</string>
     <string name="delete_task_message">هل انت متأكد من حذف هذه المهمة؟</string>
+    <string name="favorites">المفضلة</string>
+    <string name="search_favorites">البحث في المفضلة</string>
 </resources>
