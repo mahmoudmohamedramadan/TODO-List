@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         categoriesAdapter = new CategoryAdapter(db, this);
         categoriesRecycleView.setAdapter(categoriesAdapter);
         // FloatingActionButton
-        FloatingActionButton addNewCategory = findViewById(R.id.addNewCategory);
+        FloatingActionButton addNewCategoryButton = findViewById(R.id.addNewCategoryButton);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new CategoryRecyclerItemTouchHelper(categoriesAdapter));
         itemTouchHelper.attachToRecyclerView(categoriesRecycleView);
         // SearchView
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         Collections.reverse(categoryList);
         categoriesAdapter.setCategories(categoryList);
         // add addNewCategory's onClickListener
-        addNewCategory.setOnClickListener(new View.OnClickListener() {
+        addNewCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddNewCategory.newInstance().show(getSupportFragmentManager(), AddNewCategory.TAG);
