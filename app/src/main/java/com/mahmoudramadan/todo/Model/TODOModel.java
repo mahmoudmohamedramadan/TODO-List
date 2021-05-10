@@ -2,7 +2,7 @@ package com.mahmoudramadan.todo.Model;
 
 public class TODOModel {
     private int id, status, favorite, category_id;
-    private String task, date;
+    private String task, date_time;
 
     public int getId() {
         return id;
@@ -10,14 +10,6 @@ public class TODOModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public String getTask() {
@@ -28,12 +20,20 @@ public class TODOModel {
         this.task = task;
     }
 
-    public String getDate() {
-        return date;
+    public int getStatus() {
+        return status;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getDate_time() {
+        return date_time;
+    }
+
+    public void setDate_time(String date_time) {
+        this.date_time = date_time;
     }
 
     public int getFavorite() {
