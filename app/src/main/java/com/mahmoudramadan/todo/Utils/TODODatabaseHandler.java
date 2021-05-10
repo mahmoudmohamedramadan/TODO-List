@@ -130,10 +130,9 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void pushNotification(MainActivity activity) {
-        Cursor cursor = null;
-
         Calendar calendar = Calendar.getInstance();
 
+        Cursor cursor = null;
         db.beginTransaction();
         try {
             cursor = db.query(TODO_TABLE, new String[]{"task", "date_time"}, "date_time!=''", null,
@@ -144,7 +143,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
                         String task = cursor.getString(cursor.getColumnIndex("task"));
                         String dateTime = cursor.getString(cursor.getColumnIndex("date_time"));
                         calendar.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(dateTime));
-                        if(new Date().before(calendar.getTime())) {
+                        if (new Date().before(calendar.getTime())) {
                             NotificationManager.scheduleNotification(
                                     NotificationManager.getNotification(task, activity), activity, dateTime);
                         }
