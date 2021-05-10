@@ -113,7 +113,7 @@ public class AddNewTask extends AppCompatDialogFragment {
                         TODOModel task = new TODOModel();
                         task.setTask(text);
                         task.setStatus(0);
-                        task.setDate(null);
+                        task.setDate_time(null);
                         task.setFavorite(0);
                         task.setCategory_id(Integer.parseInt(category_id));
                         db.insertTask(task);
