@@ -21,7 +21,7 @@ import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
 public class TaskDateActivity extends AppCompatDialogFragment {
 
     public static String TAG = "TaskDateDialog";
-    private Button saveTaskDateButton;
+    private Button saveTaskDateTimeButton;
     private DatePicker taskDatePicker;
     private TimePicker taskTimePicker;
     private View currentClickedItem;
@@ -42,7 +42,7 @@ public class TaskDateActivity extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.task_date, null);
 
-        saveTaskDateButton = view.findViewById(R.id.saveTaskDateButton);
+        saveTaskDateTimeButton = view.findViewById(R.id.saveTaskDateTimeButton);
         taskDatePicker = view.findViewById(R.id.taskDatePicker);
         taskTimePicker = view.findViewById(R.id.taskTimePicker);
         taskTimePicker.setIs24HourView(true);
@@ -60,17 +60,16 @@ public class TaskDateActivity extends AppCompatDialogFragment {
 
         final Bundle bundle = getArguments();
 
-        saveTaskDateButton.setOnClickListener(new View.OnClickListener() {
+        saveTaskDateTimeButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 TextView selectedDateTimeTextView = currentClickedItem.findViewById(R.id.selectedDateTimeTextView);
-                String date = taskDatePicker.getYear() + "/" + taskDatePicker.getMonth() + "/" + taskDatePicker.getDayOfMonth();
-                String time = taskTimePicker.getCurrentHour() + ":" + taskTimePicker.getCurrentMinute();
-                selectedDateTimeTextView.setText(date + " " + time);
-
+                String dateTime = taskDatePicker.getYear() + "/" + taskDatePicker.getMonth() + "/" + taskDatePicker.getDayOfMonth()
+                        + " " + taskTimePicker.getCurrentHour() + ":" + taskTimePicker.getCurrentMinute();
+                selectedDateTimeTextView.setText(dateTime);
                 if (bundle != null) {
-                    db.updateTaskDateTime(bundle.getInt("id"), date + " " + time);
+                    db.updateTaskDateTime(bundle.getInt("id"), dateTime);
                 }
                 dismiss();
             }
