@@ -65,8 +65,9 @@ public class TaskDateActivity extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 TextView selectedDateTimeTextView = currentClickedItem.findViewById(R.id.selectedDateTimeTextView);
-                String dateTime = taskDatePicker.getYear() + "/" + taskDatePicker.getMonth() + "/" + taskDatePicker.getDayOfMonth()
-                        + " " + taskTimePicker.getCurrentHour() + ":" + taskTimePicker.getCurrentMinute();
+                int monthDate = taskDatePicker.getMonth() + 1;
+                String dateTime = taskDatePicker.getYear() + "/" + monthDate + "/" + taskDatePicker.getDayOfMonth() + " " +
+                        taskTimePicker.getCurrentHour() + ":" + taskTimePicker.getCurrentMinute();
                 selectedDateTimeTextView.setText(dateTime);
                 if (bundle != null) {
                     db.updateTaskDateTime(bundle.getInt("id"), dateTime);
