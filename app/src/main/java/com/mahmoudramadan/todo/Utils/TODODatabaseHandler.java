@@ -6,9 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.mahmoudramadan.todo.MainActivity;
 import com.mahmoudramadan.todo.Model.TODOModel;
+import com.mahmoudramadan.todo.Notifications.NotificationManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TODODatabaseHandler extends SQLiteOpenHelper {
@@ -21,7 +27,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_TASK = "task";
     public static final String COLUMN_NAME_STATUS = "status";
     public static final String COLUMN_NAME_DATETIME = "date_time";
-    public static final String COLUMN_NAME_FAVORITE= "favorite";
+    public static final String COLUMN_NAME_FAVORITE = "favorite";
     public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
 
     private static final String CREATE_TODO_TABLE = "CREATE TABLE IF NOT EXISTS " + TODO_TABLE + "(" +
@@ -121,5 +127,35 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
 
     public void deleteTask(int id) {
         db.delete(TODO_TABLE, "id=?", new String[]{String.valueOf(id)});
+    }
+
+    public void pushNotification(MainActivity activity) {
+        Cursor cursor = null;
+
+        Calendar calendar = Calendar.getInstance();
+
+        db.beginTransaction();
+        try {
+            cursor = db.query(TODO_TABLE, new String[]{"task", "date_time"}, "date_time!=''", null,
+                    null, null, null, null);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        String task = cursor.getString(cursor.getColumnIndex("task"));
+                        String dateTime = cursor.getString(cursor.getColumnIndex("date_time"));
+                        calendar.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(dateTime));
+                        if(new Date().before(calendar.getTime())) {
+                            NotificationManager.scheduleNotification(
+                                    NotificationManager.getNotification(task, activity), activity, dateTime);
+                        }
+                    } while (cursor.moveToNext());
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+            cursor.close();
+        }
     }
 }
