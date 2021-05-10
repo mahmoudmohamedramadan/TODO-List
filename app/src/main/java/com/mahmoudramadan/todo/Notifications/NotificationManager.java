@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 
 import com.mahmoudramadan.todo.MainActivity;
 import com.mahmoudramadan.todo.R;
+import com.mahmoudramadan.todo.TasksActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +20,6 @@ public class NotificationManager {
 
     public static void scheduleNotification(Notification notification, MainActivity activity, String dateTime) throws ParseException {
         Intent notificationIntent = new Intent(activity, NotificationPublisher.class);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
 
         SimpleDateFormat sDFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ENGLISH);
@@ -28,7 +28,7 @@ public class NotificationManager {
         calendar.setTime(sDFormat.parse(dateTime));
 
         PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(activity, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getBroadcast(activity, (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
