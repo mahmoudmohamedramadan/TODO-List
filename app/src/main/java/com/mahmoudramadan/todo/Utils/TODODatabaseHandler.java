@@ -20,7 +20,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public static final String ID = "id";
     public static final String COLUMN_NAME_TASK = "task";
     public static final String COLUMN_NAME_STATUS = "status";
-    public static final String COLUMN_NAME_DATE = "date";
+    public static final String COLUMN_NAME_DATETIME = "date_time";
     public static final String COLUMN_NAME_FAVORITE= "favorite";
     public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
 
@@ -28,7 +28,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NAME_TASK + " TEXT," +
             COLUMN_NAME_STATUS + " INTEGER," +
-            COLUMN_NAME_DATE + " TEXT," +
+            COLUMN_NAME_DATETIME + " TEXT," +
             COLUMN_NAME_FAVORITE + " INTEGER," +
             COLUMN_NAME_CATEGORY_ID + " INTEGER," +
             "FOREIGN KEY(" + COLUMN_NAME_CATEGORY_ID + ") REFERENCES categories(id))";
@@ -58,7 +58,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("task", task.getTask());
         cv.put("status", 0);
-        cv.put("date", task.getDate());
+        cv.put("date_time", task.getDate_time());
         cv.put("favorite", task.getFavorite());
         cv.put("category_id", task.getCategory_id());
         db.insert(TODO_TABLE, null, cv);
@@ -76,7 +76,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
                         TODOModel task = new TODOModel();
                         task.setId(cursor.getInt(cursor.getColumnIndex("id")));
                         task.setTask(cursor.getString(cursor.getColumnIndex("task")));
-                        task.setDate(cursor.getString(cursor.getColumnIndex("date")));
+                        task.setDate_time(cursor.getString(cursor.getColumnIndex("date_time")));
                         task.setStatus(cursor.getInt(cursor.getColumnIndex("status")));
                         task.setFavorite(cursor.getInt(cursor.getColumnIndex("favorite")));
                         taskList.add(task);
@@ -107,9 +107,9 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         db.update(TODO_TABLE, cv, "id=?", new String[]{String.valueOf(id)});
     }
 
-    public void updateTaskDate(int id, String newTaskDate) {
+    public void updateTaskDateTime(int id, String newTaskDateTime) {
         ContentValues cv = new ContentValues();
-        cv.put("date", newTaskDate);
+        cv.put("date_time", newTaskDateTime);
         db.update(TODO_TABLE, cv, "id=?", new String[]{String.valueOf(id)});
     }
 
