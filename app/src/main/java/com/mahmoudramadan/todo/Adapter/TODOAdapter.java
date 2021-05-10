@@ -49,7 +49,7 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         db.openDatabase();
         final TODOModel item = todoList.get(position);
         holder.todoCheckBox.setText(item.getTask());
-        holder.selectedDateTextView.setText(item.getDate());
+        holder.selectedDateTimeTextView.setText(item.getDate_time());
         holder.todoCheckBox.setChecked(toBoolean(item.getStatus()));
 
         if (holder.todoCheckBox.isChecked())
@@ -78,7 +78,7 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         holder.datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateItemTaskDate(holder.itemView, position);
+                updateItemTaskDateTime(holder.itemView, position);
             }
         });
 
@@ -125,11 +125,11 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
         fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
     }
 
-    public void updateItemTaskDate(View view, int position) {
+    public void updateItemTaskDateTime(View view, int position) {
         TODOModel item = todoList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
-        bundle.putString("date", item.getDate());
+        bundle.putString("date_time", item.getDate_time());
         TaskDateActivity fragment = new TaskDateActivity(view);
         fragment.setArguments(bundle);
         fragment.show(activity.getSupportFragmentManager(), TaskDateActivity.TAG);
@@ -144,14 +144,14 @@ public class TODOAdapter extends RecyclerView.Adapter<TODOAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox todoCheckBox;
-        TextView selectedDateTextView;
+        TextView selectedDateTimeTextView;
         FloatingActionButton datePickerButton;
         ImageButton addToFavouriteImageButton;
 
         public ViewHolder(View view) {
             super(view);
             todoCheckBox = view.findViewById(R.id.todoCheckBox);
-            selectedDateTextView = view.findViewById(R.id.selectedDateTextView);
+            selectedDateTimeTextView = view.findViewById(R.id.selectedDateTimeTextView);
             datePickerButton = view.findViewById(R.id.datePickerButton);
             addToFavouriteImageButton = view.findViewById(R.id.addToFavouriteImageButton);
         }
