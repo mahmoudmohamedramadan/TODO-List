@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
@@ -20,9 +23,10 @@ public class TaskDateActivity extends AppCompatDialogFragment {
     public static String TAG = "TaskDateDialog";
     private Button saveTaskDateButton;
     private DatePicker taskDatePicker;
+    private TimePicker taskTimePicker;
     private View currentClickedItem;
 
-    public TaskDateActivity (View currentClickedItem) {
+    public TaskDateActivity(View currentClickedItem) {
         this.currentClickedItem = currentClickedItem;
     }
 
@@ -37,8 +41,11 @@ public class TaskDateActivity extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.task_date, null);
+
         saveTaskDateButton = view.findViewById(R.id.saveTaskDateButton);
         taskDatePicker = view.findViewById(R.id.taskDatePicker);
+        taskTimePicker = view.findViewById(R.id.taskTimePicker);
+        taskTimePicker.setIs24HourView(true);
 
         builder.setView(view).setCustomTitle(new TextView(getContext()));
         return builder.create();
@@ -54,13 +61,16 @@ public class TaskDateActivity extends AppCompatDialogFragment {
         final Bundle bundle = getArguments();
 
         saveTaskDateButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                TextView selectedDateTextView = currentClickedItem.findViewById(R.id.selectedDateTextView);
-                selectedDateTextView.setText(taskDatePicker.getYear() + "/" + taskDatePicker.getMonth() + "/" + taskDatePicker.getDayOfMonth());
+                TextView selectedDateTimeTextView = currentClickedItem.findViewById(R.id.selectedDateTimeTextView);
+                String date = taskDatePicker.getYear() + "/" + taskDatePicker.getMonth() + "/" + taskDatePicker.getDayOfMonth();
+                String time = taskTimePicker.getCurrentHour() + ":" + taskTimePicker.getCurrentMinute();
+                selectedDateTimeTextView.setText(date + " " + time);
 
                 if (bundle != null) {
-                    db.updateTaskDate(bundle.getInt("id"), selectedDateTextView.getText().toString());
+                    db.updateTaskDateTime(bundle.getInt("id"), date + " " + time);
                 }
                 dismiss();
             }
