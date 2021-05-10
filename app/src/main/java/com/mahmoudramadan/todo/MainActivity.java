@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     private CategoryAdapter categoriesAdapter;
     private List<CategoryModel> categoryList;
     private CategoryDatabaseHandler db;
+    private TODODatabaseHandler dbTODO = new TODODatabaseHandler(this);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         db = new CategoryDatabaseHandler(this);
         db.openDatabase();
 
-        TODODatabaseHandler dbTODO = new TODODatabaseHandler(this);
         dbTODO.openDatabase();
         dbTODO.onCreate(dbTODO.db);
         dbTODO.pushNotification(this);
@@ -114,17 +114,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 return true;
             }
         });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //startService( new Intent( this, NotificationService. class )) ;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
