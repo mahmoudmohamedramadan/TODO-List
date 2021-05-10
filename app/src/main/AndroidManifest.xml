@@ -18,6 +18,8 @@
         </activity>
         <activity android:name="com.mahmoudramadan.todo.MainActivity" />
         <activity android:name="com.mahmoudramadan.todo.TasksActivity" />
+
+        <receiver android:name=".Notifications.NotificationPublisher" />
     </application>
 
 </manifest>
