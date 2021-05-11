@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.provider.Settings;
 
-
 import com.mahmoudramadan.todo.R;
 import com.mahmoudramadan.todo.TasksActivity;
 import com.mahmoudramadan.todo.Utils.CategoryDatabaseHandler;
@@ -29,14 +28,16 @@ public class NotificationPublisher extends BroadcastReceiver {
         tasksActivityIntent.putExtra("category_id", intent.getStringExtra("category_id"));
         tasksActivityIntent.putExtra("category", db.getCategory(Integer.parseInt(intent.getStringExtra("category_id"))));
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, tasksActivityIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(),
+                tasksActivityIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
         Notification notification = new Notification.Builder(context)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(intent.getStringExtra("task"))
-                .addAction(R.drawable.ic_baseline_add, "Open", pendingIntent)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI, AudioManager.STREAM_NOTIFICATION)
-                .setSmallIcon(R.mipmap.ic_launcher_todo)
+                .setSmallIcon(R.drawable.ic_baseline_notifications)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_todo))
                 .build();
 
