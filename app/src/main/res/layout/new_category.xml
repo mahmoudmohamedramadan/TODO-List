@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -6,10 +8,13 @@
         android:id="@+id/newCategoryTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/newTaskEditText"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
         android:background="@null"
         android:fontFamily="monospace"
         android:gravity="center_horizontal"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/add_new_category"
         android:textAlignment="center"
         android:textColor="@color/custom_dark_gray"
