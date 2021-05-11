@@ -14,8 +14,8 @@ import java.util.Locale;
 
 public class NotificationManager {
 
-    public static void scheduleNotification(MainActivity activity, String[] taskData) throws ParseException {
-        Intent notificationIntent = new Intent(activity, NotificationPublisher.class);
+    public static void scheduleNotification(String[] taskData) throws ParseException {
+        Intent notificationIntent = new Intent(MainActivity.activity, NotificationPublisher.class);
         notificationIntent.putExtra("task", taskData[0]);
         notificationIntent.putExtra("category_id", taskData[2]);
 
@@ -24,10 +24,10 @@ public class NotificationManager {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(sDFormat.parse(taskData[1]));
 
-        PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(activity, (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.activity,
+                (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) MainActivity.activity.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 }
