@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mahmoudramadan.todo.Adapter.TODOAdapter;
 import com.mahmoudramadan.todo.Model.TODOModel;
+import com.mahmoudramadan.todo.Notifications.NotificationManager;
 import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
 
 import java.util.ArrayList;
