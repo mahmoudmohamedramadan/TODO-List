@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.mahmoudramadan.todo.MainActivity;
 import com.mahmoudramadan.todo.Model.TODOModel;
 import com.mahmoudramadan.todo.Notifications.NotificationManager;
 
@@ -127,7 +126,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         db.delete(TODO_TABLE, "id=?", new String[]{String.valueOf(id)});
     }
 
-    public void pushNotification(MainActivity activity) {
+    public void pushNotification() {
         Calendar calendar = Calendar.getInstance();
 
         Cursor cursor = null;
@@ -142,7 +141,7 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
                         String categoryId = cursor.getString(cursor.getColumnIndex("category_id"));
                         calendar.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(dateTime));
                         if (new Date().before(calendar.getTime())) {
-                            NotificationManager.scheduleNotification(activity, new String[]{task, dateTime, categoryId});
+                            NotificationManager.scheduleNotification(new String[]{task, dateTime, categoryId});
                         }
                     } while (cursor.moveToNext());
                 }
