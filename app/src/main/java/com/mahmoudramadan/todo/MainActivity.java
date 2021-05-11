@@ -21,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mahmoudramadan.todo.Adapter.CategoryAdapter;
 import com.mahmoudramadan.todo.Model.CategoryModel;
 import com.mahmoudramadan.todo.Utils.CategoryDatabaseHandler;
-import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +31,11 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
     private CategoryAdapter categoriesAdapter;
     private List<CategoryModel> categoryList;
     private CategoryDatabaseHandler db;
-    private TODODatabaseHandler dbTODO = new TODODatabaseHandler(this);
+    public static MainActivity activity;
+
+    private static void newInstance(MainActivity activity) {
+        MainActivity.activity = activity;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -43,14 +46,10 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        newInstance(this);
 
         db = new CategoryDatabaseHandler(this);
         db.openDatabase();
-
-        dbTODO.openDatabase();
-        dbTODO.onCreate(dbTODO.db);
-        dbTODO.pushNotification(this);
-
         categoryList = new ArrayList<>();
         // RecyclerView
         RecyclerView categoriesRecycleView = findViewById(R.id.categoriesRecycleView);
