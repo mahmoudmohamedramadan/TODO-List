@@ -54,7 +54,6 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
     public List<CategoryModel> getCategories(String query, String[] selectionArgs) {
         List<CategoryModel> categoryList = new ArrayList<>();
         Cursor cursor = null;
-        db.beginTransaction();
         try {
             cursor = db.query(CATEGORY_TABLE, null, query, selectionArgs, null, null, null, null);
             if (cursor != null) {
@@ -68,14 +67,24 @@ public class CategoryDatabaseHandler extends SQLiteOpenHelper {
                 }
             }
         } finally {
-            db.endTransaction();
             cursor.close();
         }
         return categoryList;
     }
 
+    public String getCategory(int id) {
+        Cursor cursor = db.query(CATEGORY_TABLE, new String[]{"category"}, "id=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+        CategoryModel category = new CategoryModel();
+        if (cursor.moveToFirst()) {
+            category.setCategory(cursor.getString(cursor.getColumnIndex("category")));
+            cursor.close();
+        }
+        return category.getCategory();
+    }
+
     public int getCategoryCount(String category) {
-        return db.query(CATEGORY_TABLE, null, "category =?", new String[]{category},
+        return db.query(CATEGORY_TABLE, null, "category=?", new String[]{category},
                 null, null, null, null).getCount();
     }
 
