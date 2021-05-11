@@ -71,6 +71,7 @@ public class TaskDateActivity extends AppCompatDialogFragment {
                 selectedDateTimeTextView.setText(dateTime);
                 if (bundle != null) {
                     db.updateTaskDateTime(bundle.getInt("id"), dateTime);
+                    db.pushNotification();
                 }
                 dismiss();
             }
