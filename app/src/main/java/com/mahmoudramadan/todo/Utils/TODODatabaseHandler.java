@@ -73,7 +73,6 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
     public List<TODOModel> getTasks(String query, String[] selectionArgs) {
         List<TODOModel> taskList = new ArrayList<>();
         Cursor cursor = null;
-        db.beginTransaction();
         try {
             cursor = db.query(TODO_TABLE, null, query, selectionArgs, null, null, "status ASC", null);
             if (cursor != null) {
@@ -90,7 +89,6 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
                 }
             }
         } finally {
-            db.endTransaction();
             cursor.close();
         }
         return taskList;
@@ -133,19 +131,18 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         Calendar calendar = Calendar.getInstance();
 
         Cursor cursor = null;
-        db.beginTransaction();
         try {
-            cursor = db.query(TODO_TABLE, new String[]{"task", "date_time"}, "date_time!=''", null,
+            cursor = db.query(TODO_TABLE, new String[]{"task", "date_time", "category_id"}, "date_time!=''", null,
                     null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
                         String task = cursor.getString(cursor.getColumnIndex("task"));
                         String dateTime = cursor.getString(cursor.getColumnIndex("date_time"));
+                        String categoryId = cursor.getString(cursor.getColumnIndex("category_id"));
                         calendar.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(dateTime));
                         if (new Date().before(calendar.getTime())) {
-                            NotificationManager.scheduleNotification(
-                                    NotificationManager.getNotification(task, activity), activity, dateTime);
+                            NotificationManager.scheduleNotification(activity, new String[]{task, dateTime, categoryId});
                         }
                     } while (cursor.moveToNext());
                 }
@@ -153,7 +150,6 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         } catch (ParseException e) {
             e.printStackTrace();
         } finally {
-            db.endTransaction();
             cursor.close();
         }
     }
