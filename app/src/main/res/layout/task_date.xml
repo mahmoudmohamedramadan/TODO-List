@@ -1,54 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/dateTaskTitleTextView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/newTaskEditText"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:background="@null"
-        android:fontFamily="monospace"
-        android:gravity="center_horizontal"
-        android:padding="5dp"
-        android:text="@string/choose_task_date"
-        android:textAlignment="center"
-        android:textColor="@color/custom_dark_gray"
-        android:textSize="24sp" />
+        android:layout_height="wrap_content">
 
-    <DatePicker
-        android:id="@+id/taskDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/dateTaskTitleTextView"
-        android:layout_marginTop="20dp"
-        android:datePickerMode="spinner" />
+        <TextView
+            android:id="@+id/dateTaskTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/newTaskEditText"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:fontFamily="monospace"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="@string/choose_task_date"
+            android:textAlignment="center"
+            android:textColor="@color/custom_dark_gray"
+            android:textSize="24sp" />
 
-    <TimePicker
-        android:id="@+id/taskTimePicker"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/taskDatePicker"
-        android:timePickerMode="spinner" />
+        <DatePicker
+            android:id="@+id/taskDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateTaskTitleTextView"
+            android:layout_marginTop="20dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:theme="@android:style/Holo.ButtonBar" />
 
-    <Button
-        android:id="@+id/saveTaskDateTimeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/taskTimePicker"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="monospace"
-        android:text="@string/save"
-        android:textAllCaps="false"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="16dp" />
-</RelativeLayout>
+        <TimePicker
+            android:id="@+id/taskTimePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/taskDatePicker"
+            android:layout_marginTop="20dp"
+            android:theme="@android:style/Holo.ButtonBar"
+            android:timePickerMode="spinner" />
+
+    </RelativeLayout>
+
+</ScrollView>
+
