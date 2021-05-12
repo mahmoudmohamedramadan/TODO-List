@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,8 +32,9 @@ public class AddNewTask extends AppCompatDialogFragment {
         return new AddNewTask();
     }
 
-    private void setNewCategoryButtonColor(Drawable borderColor, boolean isEnabled, int textColor) {
-        newTaskEditText.setBackground(borderColor);
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void setNewTaskEditTextAndButtonColor(int borderColor, boolean isEnabled, int textColor) {
+        newTaskEditText.setBackgroundTintList(getResources().getColorStateList(borderColor));
         saveTaskButton.setEnabled(isEnabled);
         saveTaskButton.setBackgroundColor(textColor);
     }
@@ -44,18 +44,16 @@ public class AddNewTask extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_task, null);
 
         newTaskTitle = view.findViewById(R.id.newTaskTitle);
         newTaskEditText = view.findViewById(R.id.newTaskEditText);
         saveTaskButton = view.findViewById(R.id.saveTaskButton);
-
-        setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
 
         builder.setView(view).setCustomTitle(new TextView(getContext()));
         return builder.create();
@@ -85,13 +83,13 @@ public class AddNewTask extends AppCompatDialogFragment {
 
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().equals(""))
-                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.disabled_edit_text_border), false, Color.GRAY);
+                    setNewTaskEditTextAndButtonColor(R.color.custom_dark_gray, false, Color.GRAY);
                 else
-                    setNewCategoryButtonColor(getContext().getDrawable(R.drawable.enabled_edit_text_border), true, Color.rgb(0, 153, 204));
+                    setNewTaskEditTextAndButtonColor(R.color.custom_dark_blue, true, Color.rgb(0, 153, 204));
             }
 
             @Override
