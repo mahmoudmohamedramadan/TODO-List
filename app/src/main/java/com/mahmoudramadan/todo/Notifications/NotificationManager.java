@@ -4,6 +4,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.mahmoudramadan.todo.MainActivity;
 
@@ -14,6 +17,7 @@ import java.util.Locale;
 
 public class NotificationManager {
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void scheduleNotification(String[] taskData) throws ParseException {
         Intent notificationIntent = new Intent(MainActivity.activity, NotificationPublisher.class);
         notificationIntent.putExtra("task", taskData[0]);
@@ -26,8 +30,10 @@ public class NotificationManager {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.activity,
                 (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         AlarmManager alarmManager = (AlarmManager) MainActivity.activity.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        else
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 }
