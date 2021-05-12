@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/dateTaskTitleTextView"
+            android:id="@+id/taskDateTimeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/newTaskEditText"
+            android:layout_alignTop="@+id/taskDatePicker"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@null"
-            android:fontFamily="monospace"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:text="@string/choose_task_date"
+            android:text="@string/choose_task_date_time"
             android:textAlignment="center"
             android:textColor="@color/custom_dark_gray"
-            android:textSize="24sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <DatePicker
             android:id="@+id/taskDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dateTaskTitleTextView"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:calendarViewShown="false"
             android:datePickerMode="spinner"
             android:theme="@android:style/Holo.ButtonBar" />
@@ -39,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/taskDatePicker"
-            android:layout_marginTop="20dp"
             android:theme="@android:style/Holo.ButtonBar"
             android:timePickerMode="spinner" />
 
