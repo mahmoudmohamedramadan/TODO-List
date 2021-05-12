@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.mahmoudramadan.todo.Utils.TODODatabaseHandler;
 public class TaskDateActivity extends AppCompatDialogFragment {
 
     public static String TAG = "TaskDateDialog";
+    private TextView taskDateTimeTitle;
     private DatePicker taskDatePicker;
     private TimePicker taskTimePicker;
     private View currentClickedItem;
@@ -33,6 +35,8 @@ public class TaskDateActivity extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        super.onCreateDialog(savedInstanceState);
+
         TODODatabaseHandler db = new TODODatabaseHandler(getActivity());
         db.openDatabase();
 
@@ -64,12 +68,21 @@ public class TaskDateActivity extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.task_date, null);
 
+        taskDateTimeTitle = view.findViewById(R.id.taskDateTimeTitle);
         taskDatePicker = view.findViewById(R.id.taskDatePicker);
         taskTimePicker = view.findViewById(R.id.taskTimePicker);
         taskTimePicker.setIs24HourView(true);
 
         builder.setView(view).setCustomTitle(new TextView(getContext()));
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
+            }
+        });
+
+        return dialog;
     }
 
     @Override
