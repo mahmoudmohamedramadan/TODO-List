@@ -9,7 +9,7 @@
     <string name="add_new_task">اضافة مهمة جديدة</string>
     <string name="edit_task">تعديل المهمة</string>
     <string name="type_a_task">اكتب المهمة</string>
-    <string name="choose_task_date">اختر تاريخ المهمة</string>
+    <string name="choose_task_date_time">اختر تاريخ المهمة</string>
     <string name="save">حفظ</string>
     <string name="warning">تحذير</string>
     <string name="ok">حسنا</string>

@@ -9,7 +9,7 @@
     <string name="add_new_task">Add New Task</string>
     <string name="edit_task">Edit Task</string>
     <string name="type_a_task">Type a task</string>
-    <string name="choose_task_date">Choose Task Date</string>
+    <string name="choose_task_date_time">Choose Task Date</string>
     <string name="save">Save</string>
     <string name="warning">Warning</string>
     <string name="ok">OK</string>
