@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.mahmoudramadan.todo.Model.TODOModel;
 import com.mahmoudramadan.todo.Notifications.NotificationManager;
@@ -126,22 +129,24 @@ public class TODODatabaseHandler extends SQLiteOpenHelper {
         db.delete(TODO_TABLE, "id=?", new String[]{String.valueOf(id)});
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void pushNotification() {
         Calendar calendar = Calendar.getInstance();
 
         Cursor cursor = null;
         try {
-            cursor = db.query(TODO_TABLE, new String[]{"task", "date_time", "category_id"}, "date_time!=''", null,
+            cursor = db.query(TODO_TABLE, new String[]{"id", "task", "date_time", "category_id"}, "date_time!=''", null,
                     null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     do {
+                        int taskID = cursor.getInt(cursor.getColumnIndex("id"));
                         String task = cursor.getString(cursor.getColumnIndex("task"));
                         String dateTime = cursor.getString(cursor.getColumnIndex("date_time"));
                         String categoryId = cursor.getString(cursor.getColumnIndex("category_id"));
                         calendar.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(dateTime));
                         if (new Date().before(calendar.getTime())) {
-                            NotificationManager.scheduleNotification(new String[]{task, dateTime, categoryId});
+                            NotificationManager.scheduleNotification(taskID, new String[]{task, dateTime, categoryId});
                         }
                     } while (cursor.moveToNext());
                 }
