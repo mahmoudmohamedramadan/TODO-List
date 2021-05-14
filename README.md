@@ -11,6 +11,7 @@ This is a TODO List android application ✌✨
  <li>CRUD with favorites</li>
  <li>Provide English/Arabic Language</li>
  <li>Push Notifications</li>
+ <li>Choose Notification Sound</li>
  </ul>
 
 ## Used Technologies 🎉
