@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -64,8 +68,10 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         SearchView categorySearchView = findViewById(R.id.categorySearchView);
         // BottomAppBar
         BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar);
-        // ImageView
+        // favoritesImageButton
         ImageButton favoritesImageButton = findViewById(R.id.favoritesImageButton);
+        // chooseSoundNotificationImageButton
+        ImageButton chooseSoundNotificationImageButton = findViewById(R.id.chooseSoundNotificationImageButton);
 
         categoryList = db.getCategories(null, null);
         Collections.reverse(categoryList);
@@ -83,6 +89,17 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TasksActivity.class);
                 startActivity(intent);
+            }
+        });
+        // add chooseSoundNotificationImageButton's onClickListener
+        chooseSoundNotificationImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Choose Notification Sound");
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+                startActivityForResult(intent, 5);
             }
         });
         // add taskSearchView's onQueryTextListener
@@ -113,6 +130,21 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if (resultCode == Activity.RESULT_OK && requestCode == 5) {
+            Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+
+            if (uri != null) {
+                SharedPreferences.Editor editor = activity.getSharedPreferences("Settings", activity.MODE_PRIVATE).edit();
+                editor.putString("song", uri.toString());
+                editor.apply();
+            }
+        }
     }
 
     @Override
