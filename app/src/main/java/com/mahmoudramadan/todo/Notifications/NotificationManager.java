@@ -18,7 +18,7 @@ import java.util.Locale;
 public class NotificationManager {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static void scheduleNotification(String[] taskData) throws ParseException {
+    public static void scheduleNotification(int taskID, String[] taskData) throws ParseException {
         Intent notificationIntent = new Intent(MainActivity.activity, NotificationPublisher.class);
         notificationIntent.putExtra("task", taskData[0]);
         notificationIntent.putExtra("category_id", taskData[2]);
@@ -28,8 +28,7 @@ public class NotificationManager {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(sDFormat.parse(taskData[1]));
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.activity,
-                (int) System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.activity, taskID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) MainActivity.activity.getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT)
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
