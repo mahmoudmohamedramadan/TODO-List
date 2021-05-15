@@ -9,7 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.SyncStateContract;
@@ -46,9 +46,13 @@ public class NotificationPublisher extends BroadcastReceiver {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            channel.enableVibration(true);
-            channel.setLightColor(Color.BLUE);
+
+            AudioAttributes attributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
+
             channel.enableLights(true);
+            channel.enableVibration(true);
+            channel.setSound(Uri.parse(tone), attributes);
             if (channel.canShowBadge()) channel.setShowBadge(true);
             notificationManager.createNotificationChannel(channel);
         }
