@@ -42,7 +42,7 @@ public class NotificationPublisher extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         SharedPreferences preferences = context.getSharedPreferences("Settings", context.MODE_PRIVATE);
-        String song = preferences.getString("song", "");
+        String tone = preferences.getString("tone", "");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
@@ -58,7 +58,7 @@ public class NotificationPublisher extends BroadcastReceiver {
                 .setContentText(intent.getStringExtra("task"))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setSound(Uri.parse(song))
+                .setSound(Uri.parse(tone))
                 .setSmallIcon(R.drawable.ic_baseline_notifications)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_todo));
 
