@@ -1,6 +1,5 @@
 package com.mahmoudramadan.todo;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -13,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         MainActivity.activity = activity;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Load stored locale of my application
@@ -95,10 +92,13 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         chooseSoundNotificationImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
+                String tone = preferences.getString("tone", "");
+
                 Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
                 intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Choose Notification Sound");
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.choose_notification_tone));
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(tone));
                 startActivityForResult(intent, 5);
             }
         });
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
             if (uri != null) {
                 SharedPreferences.Editor editor = activity.getSharedPreferences("Settings", activity.MODE_PRIVATE).edit();
-                editor.putString("song", uri.toString());
+                editor.putString("tone", uri.toString());
                 editor.apply();
             }
         }
